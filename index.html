@@ -14,16 +14,12 @@
     }
     header {
       background: linear-gradient(135deg, #214d22, #4b7f2b);
-      padding: 28px 16px;
+      padding: 26px 16px;
       text-align: center;
     }
     header h1 { margin: 0; font-size: 34px; }
     header p { margin: 10px 0 0; font-size: 18px; }
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+    main { max-width: 900px; margin: 0 auto; padding: 20px; }
     .card {
       background: #1b261b;
       border: 1px solid #385938;
@@ -33,11 +29,7 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     }
     h2, h3 { color: #b7f07a; }
-    label {
-      display: block;
-      margin: 12px 0 6px;
-      font-weight: bold;
-    }
+    label { display: block; margin: 12px 0 6px; font-weight: bold; }
     input, select, textarea, button {
       width: 100%;
       padding: 12px;
@@ -45,11 +37,8 @@
       border: 1px solid #777;
       font-size: 16px;
     }
-    input, select, textarea {
-      background: #f7f7f7;
-      color: #111;
-    }
-    textarea { min-height: 80px; }
+    input, select, textarea { background: #f7f7f7; color: #111; }
+    textarea { min-height: 80px; resize: vertical; }
     button {
       cursor: pointer;
       border: none;
@@ -59,6 +48,7 @@
       margin-top: 12px;
     }
     button:hover { background: #8bd955; }
+    button:disabled { background: #555; color: #aaa; cursor: not-allowed; }
     button.secondary {
       background: #2d3f2d;
       color: #fff;
@@ -71,21 +61,12 @@
       border-radius: 12px;
       padding: 12px;
       margin: 10px 0;
+      font-weight: normal;
     }
-    .radio-box input {
-      width: auto;
-      margin-right: 8px;
-    }
-    .radio-box.disabled {
-      opacity: 0.55;
-      color: #aaa;
-    }
+    .radio-box input { width: auto; margin-right: 8px; }
+    .radio-box.disabled { opacity: 0.55; color: #aaa; }
     .radio-box.disabled input { cursor: not-allowed; }
-    .note {
-      color: #aaa;
-      font-size: 14px;
-      margin-left: 6px;
-    }
+    .note { color: #aaa; font-size: 14px; margin-left: 6px; }
     .counter-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -102,15 +83,17 @@
     .counter strong {
       display: block;
       color: #b7f07a;
-      font-size: 26px;
+      font-size: 28px;
       margin-top: 8px;
     }
+    .counter.full { border-color: #d66; color: #ffb1b1; }
+    .counter.full strong { color: #ffb1b1; }
     .reg-box {
       background: #101810;
       border: 1px solid #496849;
       border-radius: 12px;
       padding: 14px;
-      max-height: 210px;
+      max-height: 230px;
       overflow-y: auto;
       margin-top: 10px;
     }
@@ -119,11 +102,22 @@
       padding: 12px;
       border-radius: 10px;
       display: none;
+      line-height: 1.4;
     }
     .ok { background: #244d24; border: 1px solid #74b843; }
     .err { background: #5a2222; border: 1px solid #d66; }
     .small { font-size: 14px; color: #bbb; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
     a { color: #b7f07a; }
+    @media (max-width: 650px) {
+      .counter-grid, .row { grid-template-columns: 1fr; }
+      header h1 { font-size: 28px; }
+      main { padding: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -136,10 +130,11 @@
     <section class="card">
       <h2>Wolne miejsca</h2>
       <div class="counter-grid">
-        <div class="counter">Polska <strong id="countPolska">0 / 25</strong></div>
-        <div class="counter">Czechy <strong id="countCzechy">0 / 25</strong></div>
+        <div class="counter" id="boxPolska">Polska <strong id="countPolska">Ładowanie...</strong></div>
+        <div class="counter" id="boxCzechy">Czechy <strong id="countCzechy">Ładowanie...</strong></div>
       </div>
-      <p class="small">Licznik w tej wersji aktualizuje się lokalnie po wysłaniu formularza. Pełne pobieranie z Google Sheets wymaga dodania funkcji <code>doGet</code> w Apps Script.</p>
+      <p class="small" id="counterInfo">Licznik pobiera dane z Google Sheets.</p>
+      <button type="button" class="secondary" onclick="updateCounters()">Odśwież licznik</button>
     </section>
 
     <section class="card">
@@ -151,17 +146,22 @@
           <option value="Polska vs Czechy 15/16.08.2026">Polska vs Czechy 15/16.08.2026</option>
         </select>
 
-        <label for="nick">Nick / Imię</label>
-        <input id="nick" name="nick" type="text" required placeholder="np. Adrian / Zielony" />
-
-        <label for="telefon">Telefon lub kontakt</label>
-        <input id="telefon" name="telefon" type="text" placeholder="opcjonalnie" />
+        <div class="row">
+          <div>
+            <label for="nick">Nick / Imię</label>
+            <input id="nick" name="nick" type="text" required placeholder="np. Adrian / Zielony" />
+          </div>
+          <div>
+            <label for="telefon">Telefon lub kontakt</label>
+            <input id="telefon" name="telefon" type="text" placeholder="opcjonalnie" />
+          </div>
+        </div>
 
         <h3>Drużyna</h3>
-        <label class="radio-box">
+        <label class="radio-box" id="labelPolska">
           <input type="radio" name="druzyna" value="Polska" required /> Polska
         </label>
-        <label class="radio-box">
+        <label class="radio-box" id="labelCzechy">
           <input type="radio" name="druzyna" value="Czechy" required /> Czechy
         </label>
 
@@ -197,7 +197,7 @@
         <button type="button" class="secondary" id="showRulesBtn">Wyświetl regulamin</button>
         <div id="rulesBox" class="reg-box hidden">
           <p><strong>Regulamin wydarzenia</strong></p>
-          <p>Tu zostanie dodany pełny tekst regulaminu. Na razie jest to miejsce testowe.</p>
+          <p>Tu zostanie dodany pełny tekst regulaminu.</p>
           <p>Uczestnik potwierdza, że zapoznał się z zasadami bezpieczeństwa, zasadami fair play oraz wymaganiami organizatora.</p>
         </div>
         <label class="radio-box disabled" id="acceptRulesLabel">
@@ -207,14 +207,14 @@
         <label for="uwagi">Uwagi</label>
         <textarea id="uwagi" name="uwagi" placeholder="np. replika, frakcja, dodatkowe informacje"></textarea>
 
-        <button type="submit">Wyślij zgłoszenie</button>
+        <button type="submit" id="submitBtn">Wyślij zgłoszenie</button>
         <div id="status" class="status"></div>
       </form>
     </section>
   </main>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBteo0SGQVSuKPsSk3H3MBilZVMbUKZeciSWxzDivrJZfZ2pUBkSpb3AXJnciU6hdR/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbu5v90hkY3SY1oWHn26WYW32p0in_bEZKGMKdEaU/dev";
     const LIMIT = 25;
 
     const form = document.getElementById('signupForm');
@@ -224,18 +224,66 @@
     const acceptRules = document.getElementById('acceptRules');
     const acceptRulesLabel = document.getElementById('acceptRulesLabel');
     const minorBox = document.getElementById('minorBox');
+    const submitBtn = document.getElementById('submitBtn');
 
-    let localCounts = JSON.parse(localStorage.getItem('asgCounts') || '{"Polska":0,"Czechy":0}');
-
-    function updateCounters() {
-      document.getElementById('countPolska').textContent = `${localCounts.Polska || 0} / ${LIMIT}`;
-      document.getElementById('countCzechy').textContent = `${localCounts.Czechy || 0} / ${LIMIT}`;
-    }
+    let counts = { polska: 0, czechy: 0, limit: LIMIT };
+    let countersLoaded = false;
 
     function showStatus(text, type) {
       statusBox.textContent = text;
       statusBox.className = 'status ' + type;
       statusBox.style.display = 'block';
+    }
+
+    function updateTeamAvailability() {
+      const polskaFull = Number(counts.polska || 0) >= Number(counts.limit || LIMIT);
+      const czechyFull = Number(counts.czechy || 0) >= Number(counts.limit || LIMIT);
+
+      document.getElementById('boxPolska').classList.toggle('full', polskaFull);
+      document.getElementById('boxCzechy').classList.toggle('full', czechyFull);
+
+      const polskaInput = document.querySelector('input[name="druzyna"][value="Polska"]');
+      const czechyInput = document.querySelector('input[name="druzyna"][value="Czechy"]');
+
+      polskaInput.disabled = polskaFull;
+      czechyInput.disabled = czechyFull;
+
+      document.getElementById('labelPolska').classList.toggle('disabled', polskaFull);
+      document.getElementById('labelCzechy').classList.toggle('disabled', czechyFull);
+
+      if (polskaFull && polskaInput.checked) polskaInput.checked = false;
+      if (czechyFull && czechyInput.checked) czechyInput.checked = false;
+    }
+
+    async function updateCounters() {
+      const info = document.getElementById('counterInfo');
+      try {
+        info.textContent = 'Ładowanie liczników z Google Sheets...';
+
+        const response = await fetch(SCRIPT_URL + '?t=' + Date.now(), {
+          method: 'GET',
+          cache: 'no-store'
+        });
+
+        const data = await response.json();
+
+        counts.polska = Number(data.polska || 0);
+        counts.czechy = Number(data.czechy || 0);
+        counts.limit = Number(data.limit || LIMIT);
+
+        document.getElementById('countPolska').textContent = counts.polska + ' / ' + counts.limit;
+        document.getElementById('countCzechy').textContent = counts.czechy + ' / ' + counts.limit;
+
+        countersLoaded = true;
+        info.textContent = 'Licznik pobrany z Google Sheets.';
+        updateTeamAvailability();
+      } catch (err) {
+        console.error(err);
+        document.getElementById('countPolska').textContent = '? / ' + LIMIT;
+        document.getElementById('countCzechy').textContent = '? / ' + LIMIT;
+        info.textContent = 'Nie udało się pobrać liczników. Sprawdź wdrożenie Apps Script i dostęp.';
+        countersLoaded = false;
+      }
     }
 
     showRulesBtn.addEventListener('click', () => {
@@ -261,8 +309,19 @@
       const druzyna = data.get('druzyna');
       const pakiet = data.get('pakiet');
 
-      if ((localCounts[druzyna] || 0) >= LIMIT) {
-        showStatus(`Brak miejsc w drużynie ${druzyna}.`, 'err');
+      if (!acceptRules.checked) {
+        showStatus('Najpierw wyświetl i zaakceptuj regulamin.', 'err');
+        return;
+      }
+
+      if (!countersLoaded) {
+        await updateCounters();
+      }
+
+      const currentCount = druzyna === 'Polska' ? counts.polska : counts.czechy;
+      if (Number(currentCount || 0) >= Number(counts.limit || LIMIT)) {
+        showStatus('Brak miejsc w drużynie ' + druzyna + '.', 'err');
+        updateTeamAvailability();
         return;
       }
 
@@ -280,6 +339,7 @@
       };
 
       try {
+        submitBtn.disabled = true;
         showStatus('Wysyłanie zgłoszenia...', 'ok');
 
         await fetch(SCRIPT_URL, {
@@ -289,19 +349,19 @@
           body: JSON.stringify(payload)
         });
 
-        localCounts[druzyna] = (localCounts[druzyna] || 0) + 1;
-        localStorage.setItem('asgCounts', JSON.stringify(localCounts));
-        updateCounters();
-
         form.reset();
         minorBox.classList.add('hidden');
         acceptRules.disabled = true;
         acceptRulesLabel.classList.add('disabled');
         rulesBox.classList.add('hidden');
 
-        showStatus('Zgłoszenie wysłane. Sprawdź arkusz Google Sheets.', 'ok');
+        showStatus('Zgłoszenie wysłane. Licznik odświeży się za chwilę.', 'ok');
+        setTimeout(updateCounters, 1800);
       } catch (err) {
+        console.error(err);
         showStatus('Nie udało się wysłać zgłoszenia. Sprawdź link Apps Script i uprawnienia.', 'err');
+      } finally {
+        submitBtn.disabled = false;
       }
     });
 
