@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASG Zielona Chmura - Zapisy</title>
+  <style>
+    :root {
+      --green: #1f7a3f;
+      --dark: #122018;
+      --light: #f3f7f1;
+      --accent: #9bd46b;
+      --danger: #b3261e;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #102016, #1f7a3f);
+      color: var(--dark);
+    }
+
+    header {
+      color: white;
+      text-align: center;
+      padding: 36px 16px 28px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 38px;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 18px;
+      opacity: .95;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto 40px;
+      padding: 0 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    }
+
+    h2 { margin-top: 0; }
+
+    .event-box {
+      border: 2px solid var(--green);
+      border-radius: 14px;
+      padding: 16px;
+      background: #f8fff4;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--green);
+      color: white;
+      margin: 6px 6px 6px 0;
+    }
+
+    .btn:hover { filter: brightness(1.08); }
+    .btn.secondary { background: #394b3e; }
+    .btn.danger { background: var(--danger); }
+    .btn.disabled, .btn:disabled { background: #999; cursor: not-allowed; }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #bbb;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    textarea { min-height: 80px; }
+
+    .radio-group {
+      margin-top: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #d1d1d1;
+      border-radius: 12px;
+      padding: 10px;
+      background: #fafafa;
+      font-weight: normal;
+    }
+
+    .option input { width: auto; margin: 0; }
+
+    .hidden { display: none; }
+
+    .notice {
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 12px;
+      background: #fff7d6;
+      border: 1px solid #e0c65c;
+    }
+
+    .success {
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 12px;
+      background: #e7f7e6;
+      border: 1px solid #6bbf59;
+      color: #165c20;
+      font-weight: bold;
+    }
+
+    .error {
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 12px;
+      background: #ffe8e6;
+      border: 1px solid #d65c52;
+      color: #8a1c14;
+      font-weight: bold;
+    }
+
+    .teams {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .team-card {
+      border-radius: 14px;
+      padding: 14px;
+      color: white;
+    }
+
+    .polska { background: #b3261e; }
+    .czechy { background: #214f9c; }
+
+    .count {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: #edf5e9; }
+
+    .regulamin-box {
+      max-height: 260px;
+      overflow-y: auto;
+      background: #f6f6f6;
+      border: 1px solid #ccc;
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 12px;
+      line-height: 1.45;
+    }
+
+    .small { font-size: 13px; opacity: .8; }
+
+    @media (max-width: 700px) {
+      header h1 { font-size: 30px; }
+      .teams { grid-template-columns: 1fr; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ASG Zielona Chmura</h1>
+    <p>Zapisy na wydarzenia ASG</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Dostępne wydarzenie</h2>
+      <div class="event-box">
+        <h3>Polska vs Czechy 15/16.08.26</h3>
+        <p>Limit miejsc: <strong>25 Polska</strong> oraz <strong>25 Czechy</strong>.</p>
+        <button class="btn" onclick="openForm()">Zapisz się na wydarzenie</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Aktualne miejsca</h2>
+      <div class="teams">
+        <div class="team-card polska">
+          <h3>Polska</h3>
+          <div class="count"><span id="countPolska">0</span> / 25</div>
+          <div>Sobota: <span id="satPolska">0</span></div>
+          <div>Niedziela: <span id="sunPolska">0</span></div>
+        </div>
+        <div class="team-card czechy">
+          <h3>Czechy</h3>
+          <div class="count"><span id="countCzechy">0</span> / 25</div>
+          <div>Sobota: <span id="satCzechy">0</span></div>
+          <div>Niedziela: <span id="sunCzechy">0</span></div>
+        </div>
+      </div>
+      <p class="small">Uwaga: ta wersja zapisuje dane lokalnie w tej przeglądarce. Po podpięciu Google Sheets dane będą wspólne online.</p>
+    </section>
+
+    <section id="formSection" class="card hidden">
+      <h2>Formularz zapisowy</h2>
+      <form id="signupForm">
+        <label>Wybór wydarzenia</label>
+        <select id="event" required>
+          <option value="Polska vs Czechy 15/16.08.26">Polska vs Czechy 15/16.08.26</option>
+        </select>
+
+        <label>Nick / Imię</label>
+        <input id="nick" type="text" placeholder="Wpisz nick lub imię" required />
+
+        <label>Telefon lub kontakt</label>
+        <input id="contact" type="text" placeholder="Np. telefon, Messenger, Discord" />
+
+        <label>Drużyna</label>
+        <div class="radio-group">
+          <label class="option"><input type="radio" name="team" value="Polska" required /> Polska</label>
+          <label class="option"><input type="radio" name="team" value="Czechy" required /> Czechy</label>
+        </div>
+
+        <label>Opcja udziału</label>
+        <div class="radio-group">
+          <label class="option"><input type="radio" name="days" value="Sobota-Niedziela" data-price="20" required /> Sobota-Niedziela — 20 zł</label>
+          <label class="option"><input type="radio" name="days" value="Sobota" data-price="10" required /> Sobota — 10 zł</label>
+          <label class="option"><input type="radio" name="days" value="Niedziela" data-price="10" required /> Niedziela — 10 zł</label>
+        </div>
+
+        <label>Wiek uczestnika</label>
+        <div class="radio-group">
+          <label class="option"><input type="radio" name="age" value="Mam 18 lat" required /> Mam 18 lat</label>
+          <label class="option"><input type="radio" name="age" value="Nie mam 18 lat - pobierz formularz" required /> Nie mam 18 lat — pobierz formularz</label>
+          <label class="option"><input type="radio" name="age" value="Nie mam 18 lat - będę z opiekunem" required /> Nie mam 18 lat — będę z opiekunem</label>
+        </div>
+
+        <div id="minorNotice" class="notice hidden">
+          Dla osoby niepełnoletniej wymagany będzie formularz zgody. Link do pobrania dodamy tutaj później.
+          <br />
+          <button type="button" class="btn secondary" onclick="downloadMinorForm()">Pobierz formularz zgody</button>
+        </div>
+
+        <label>Dodatkowe informacje</label>
+        <textarea id="notes" placeholder="Np. replika, frakcja, transport, uwagi"></textarea>
+
+        <div class="notice">
+          Aby zaakceptować regulamin, najpierw kliknij przycisk poniżej i wyświetl jego treść.
+          <br />
+          <button type="button" class="btn secondary" onclick="showRules()">Wyświetl regulamin</button>
+        </div>
+
+        <div id="rulesBox" class="regulamin-box hidden">
+          <h3>Regulamin wydarzenia</h3>
+          <p><strong>Tu będzie docelowy tekst regulaminu.</strong></p>
+          <p>Na razie jest to miejsce przygotowane pod regulamin ASG Zielona Chmura.</p>
+          <p>Przykładowo można tu później dodać zasady bezpieczeństwa, limity FPS/J, obowiązek ochrony oczu, zasady trafień, medyka, pirotechniki, zachowania na terenie gry oraz odpowiedzialności uczestnika.</p>
+        </div>
+
+        <label class="option" id="acceptLabel">
+          <input id="acceptRules" type="checkbox" disabled required /> Akceptuję regulamin
+        </label>
+
+        <button type="submit" class="btn">Wyślij zapis</button>
+        <button type="button" class="btn secondary" onclick="closeForm()">Zamknij formularz</button>
+      </form>
+      <div id="formMessage"></div>
+    </section>
+
+    <section class="card">
+      <h2>Lista zapisanych</h2>
+      <button class="btn secondary" onclick="exportCSV()">Pobierz listę CSV</button>
+      <button class="btn danger" onclick="clearSignups()">Wyczyść zapisy lokalne</button>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Nick</th>
+              <th>Drużyna</th>
+              <th>Sobota</th>
+              <th>Niedziela</th>
+              <th>Kwota</th>
+              <th>Wiek</th>
+              <th>Kontakt</th>
+            </tr>
+          </thead>
+          <tbody id="signupTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const LIMIT_PER_TEAM = 25;
+    const STORAGE_KEY = 'asg_zielona_chmura_signups_v1';
+
+    let signups = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(signups));
+    }
+
+    function openForm() {
+      document.getElementById('formSection').classList.remove('hidden');
+      document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeForm() {
+      document.getElementById('formSection').classList.add('hidden');
+    }
+
+    function showRules() {
+      document.getElementById('rulesBox').classList.remove('hidden');
+      document.getElementById('acceptRules').disabled = false;
+      document.getElementById('rulesBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function getSelectedRadio(name) {
+      return document.querySelector('input[name="' + name + '"]:checked');
+    }
+
+    function teamCount(team) {
+      return signups.filter(s => s.team === team).length;
+    }
+
+    function isSaturday(days) {
+      return days === 'Sobota' || days === 'Sobota-Niedziela';
+    }
+
+    function isSunday(days) {
+      return days === 'Niedziela' || days === 'Sobota-Niedziela';
+    }
+
+    function updateStats() {
+      const polska = signups.filter(s => s.team === 'Polska');
+      const czechy = signups.filter(s => s.team === 'Czechy');
+
+      document.getElementById('countPolska').textContent = polska.length;
+      document.getElementById('countCzechy').textContent = czechy.length;
+
+      document.getElementById('satPolska').textContent = polska.filter(s => s.saturday).length;
+      document.getElementById('sunPolska').textContent = polska.filter(s => s.sunday).length;
+      document.getElementById('satCzechy').textContent = czechy.filter(s => s.saturday).length;
+      document.getElementById('sunCzechy').textContent = czechy.filter(s => s.sunday).length;
+
+      const tbody = document.getElementById('signupTable');
+      tbody.innerHTML = '';
+
+      signups.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHTML(s.nick)}</td>
+          <td>${escapeHTML(s.team)}</td>
+          <td>${s.saturday ? 'TAK' : '-'}</td>
+          <td>${s.sunday ? 'TAK' : '-'}</td>
+          <td>${s.price} zł</td>
+          <td>${escapeHTML(s.age)}</td>
+          <td>${escapeHTML(s.contact || '')}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function escapeHTML(text) {
+      return String(text).replace(/[&<>'"]/g, function(char) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[char];
+      });
+    }
+
+    document.querySelectorAll('input[name="age"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const age = getSelectedRadio('age').value;
+        if (age.includes('Nie mam 18 lat')) {
+          document.getElementById('minorNotice').classList.remove('hidden');
+        } else {
+          document.getElementById('minorNotice').classList.add('hidden');
+        }
+      });
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const message = document.getElementById('formMessage');
+      message.innerHTML = '';
+
+      const team = getSelectedRadio('team').value;
+      const daysRadio = getSelectedRadio('days');
+      const days = daysRadio.value;
+      const price = Number(daysRadio.dataset.price);
+      const age = getSelectedRadio('age').value;
+      const nick = document.getElementById('nick').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+      const notes = document.getElementById('notes').value.trim();
+      const accepted = document.getElementById('acceptRules').checked;
+
+      if (!accepted) {
+        message.innerHTML = '<div class="error">Musisz wyświetlić i zaakceptować regulamin.</div>';
+        return;
+      }
+
+      if (teamCount(team) >= LIMIT_PER_TEAM) {
+        message.innerHTML = '<div class="error">Brak wolnych miejsc dla drużyny: ' + team + '.</div>';
+        return;
+      }
+
+      const alreadySigned = signups.some(s => s.nick.toLowerCase() === nick.toLowerCase() && s.team === team);
+      if (alreadySigned) {
+        message.innerHTML = '<div class="error">Ten nick jest już zapisany w tej drużynie.</div>';
+        return;
+      }
+
+      signups.push({
+        event: document.getElementById('event').value,
+        nick,
+        contact,
+        team,
+        days,
+        saturday: isSaturday(days),
+        sunday: isSunday(days),
+        price,
+        age,
+        notes,
+        createdAt: new Date().toLocaleString('pl-PL')
+      });
+
+      saveData();
+      updateStats();
+      this.reset();
+      document.getElementById('acceptRules').disabled = true;
+      document.getElementById('rulesBox').classList.add('hidden');
+      document.getElementById('minorNotice').classList.add('hidden');
+      message.innerHTML = '<div class="success">Zapis przyjęty.</div>';
+    });
+
+    function exportCSV() {
+      if (signups.length === 0) {
+        alert('Brak zapisów do pobrania.');
+        return;
+      }
+
+      const headers = ['Data zapisu','Wydarzenie','Nick','Kontakt','Drużyna','Opcja','Sobota','Niedziela','Kwota','Wiek','Uwagi'];
+      const rows = signups.map(s => [
+        s.createdAt, s.event, s.nick, s.contact, s.team, s.days,
+        s.saturday ? 'TAK' : 'NIE', s.sunday ? 'TAK' : 'NIE',
+        s.price + ' zł', s.age, s.notes
+      ]);
+
+      const csv = [headers, ...rows]
+        .map(row => row.map(value => '"' + String(value || '').replace(/"/g, '""') + '"').join(';'))
+        .join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'zapisy_asg_zielona_chmura.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearSignups() {
+      if (confirm('Czy na pewno wyczyścić lokalne zapisy?')) {
+        signups = [];
+        saveData();
+        updateStats();
+      }
+    }
+
+    function downloadMinorForm() {
+      alert('Tutaj później dodamy link do formularza zgody dla osoby niepełnoletniej.');
+    }
+
+    updateStats();
+  </script>
+</body>
+</html>
