@@ -181,7 +181,7 @@ function exportCSV(){const h=["Data","Nick","Telefon lub Konto FB","Drużyna","P
 function esc(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 if(sessionStorage.getItem("asg_admin")){loginBox.classList.add("hidden");adminPanel.classList.remove("hidden")}loadData();
 
-const EVENT_DATE = new Date("2026-08-15T09:00:00");
+const EVENT_DATE = new Date("2026-08-15T15:00:00");
 function updateCountdown(){
  const now=new Date();
  let diff=EVENT_DATE-now;
