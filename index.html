@@ -6,6 +6,10 @@
 <title>ASG Zielona Chmura - Zapisy</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#101810;color:#f2f2f2}header{background:linear-gradient(135deg,#214d22,#4b7f2b);padding:18px 16px}.headerInner{max-width:1100px;margin:auto;display:grid;grid-template-columns:95px 1fr 95px;gap:15px;align-items:center;text-align:center}.logo{width:90px;height:90px;object-fit:contain;background:transparent}header h1{margin:0;font-size:34px}header p{margin:10px 0 0;font-size:18px}.hero{background:#050805}.hero img{width:100%;display:block;max-width:1600px;margin:auto}main{max-width:1050px;margin:auto;padding:20px}.card{background:#1b261b;border:1px solid #385938;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 4px 14px rgba(0,0,0,.35)}h2,h3{color:#b7f07a}label{display:block;margin:12px 0 6px;font-weight:bold}input,select,textarea,button{width:100%;padding:12px;border-radius:10px;border:1px solid #777;font-size:16px}input,select,textarea{background:#f7f7f7;color:#111}textarea{min-height:80px}button{cursor:pointer;border:none;background:#74b843;color:#081008;font-weight:bold;margin-top:12px}button.secondary{background:#2d3f2d;color:#fff;border:1px solid #74b843}button.danger{background:#6b2020;color:#fff;border:1px solid #d66}button.smallBtn{padding:8px;font-size:13px;margin:2px 0}.hidden{display:none}.radio-box{background:#243124;border:1px solid #496849;border-radius:12px;padding:12px;margin:10px 0;font-weight:normal}.radio-box input{width:auto;margin-right:8px}.group-box{background:#142014;border:1px solid #496849;border-radius:12px;padding:12px;margin:12px 0}.personBox{background:#243124;border:1px solid #496849;border-radius:12px;padding:12px;margin:10px 0}.radio-box.disabled{opacity:.55;color:#aaa}.reserveNote{color:#ffcf6b;font-size:14px;display:none;margin-top:6px}.note{color:#aaa;font-size:14px}.counter-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.counter{background:#101810;border:1px solid #496849;border-radius:12px;padding:16px;text-align:center;font-size:20px}.counter strong{display:block;color:#b7f07a;font-size:28px;margin-top:8px}.daySplit{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dayBox,.reserveBox{background:#182218;border:1px solid #385938;border-radius:10px;padding:8px}.dayBox span,.reserveBox span{display:block;color:#b7f07a;font-weight:bold;font-size:20px;margin-top:3px}.reserveBox{margin-top:10px;background:#332a11;border-color:#caa44a;color:#ffdc7a}.counter.full{border-color:#d6b64c}.counter.full strong{color:#ffdc7a}.reg-box{background:#101810;border:1px solid #496849;border-radius:12px;padding:14px;max-height:280px;overflow-y:auto;margin-top:10px;white-space:pre-wrap;line-height:1.35}.status{margin-top:14px;padding:12px;border-radius:10px;display:none}.ok{background:#244d24;border:1px solid #74b843}.err{background:#5a2222;border:1px solid #d66}.warn{background:#4c421d;border:1px solid #d6b64c}.small{font-size:14px;color:#bbb}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}th,td{border:1px solid #496849;padding:8px;text-align:left;vertical-align:top}th{background:#243124;color:#b7f07a}tr.reserveRow td{background:#302711}.adminBar{display:flex;gap:8px;flex-wrap:wrap}.adminBar button{width:auto;min-width:150px}.publicList{overflow-x:auto}.fileLinks{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fileLinks a{display:block;text-align:center;padding:12px;border-radius:10px;border:1px solid #74b843;background:#2d3f2d;color:#fff;text-decoration:none;font-weight:bold}.langBox{position:absolute;right:16px;top:10px;max-width:170px}.langBox select{padding:8px;font-size:14px;border-radius:8px}.headerWrap{position:relative}details summary{cursor:pointer;color:#b7f07a;font-size:22px;font-weight:bold}@media(max-width:750px){.counter-grid,.row,.fileLinks,.daySplit{grid-template-columns:1fr}.headerInner{grid-template-columns:60px 1fr 60px}.logo{width:58px;height:58px}header h1{font-size:23px}header p{font-size:14px}main{padding:14px}table{font-size:12px}th,td{padding:5px}}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.timeBox{background:#101810;border:1px solid #496849;border-radius:12px;padding:12px;text-align:center}
+.timeBox strong{display:block;color:#b7f07a;font-size:30px}
+
 </style>
 </head>
 <body>
@@ -23,58 +27,19 @@
 <main>
 
 <section class="card">
-<h2>Liczba zapisanych na dni gry</h2>
-
-<div class="counter-grid">
-
-<div class="counter">
-Polska
-
-<div class="daySplit">
-<div class="dayBox">
-Sobota
-<span id="polskaSobota">0</span>
+<h2>Odliczanie do wydarzenia</h2>
+<div class="countdown">
+<div class="timeBox"><strong id="cdDays">0</strong><span>Dni</span></div>
+<div class="timeBox"><strong id="cdHours">0</strong><span>Godzin</span></div>
+<div class="timeBox"><strong id="cdMinutes">0</strong><span>Minut</span></div>
+<div class="timeBox"><strong id="cdSeconds">0</strong><span>Sekund</span></div>
 </div>
-
-<div class="dayBox">
-Niedziela
-<span id="polskaNiedziela">0</span>
-</div>
-</div>
-
-<div class="reserveBox">
-Rezerwa
-<span id="polskaRezerwa">0</span>
-</div>
-</div>
-
-<div class="counter">
-Czechy
-
-<div class="daySplit">
-<div class="dayBox">
-Sobota
-<span id="czechySobota">0</span>
-</div>
-
-<div class="dayBox">
-Niedziela
-<span id="czechyNiedziela">0</span>
-</div>
-</div>
-
-<div class="reserveBox">
-Rezerwa
-<span id="czechyRezerwa">0</span>
-</div>
-</div>
-
-</div>
-
-<p class="small" id="loadInfo">Dane są pobierane z Google Sheets.</p>
-<button class="secondary" onclick="loadData()">Odśwież dane</button>
 </section>
 
+<section class="card"><h2 data-i18n="counterTitle">Liczba zapisanych na dni gry</h2><div class="counter-grid">
+<div class="counter" id="boxPolska"><span data-i18n="teamPoland">Polska</span><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="polskaSobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="polskaNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="polskaRezerwa">0</span></div></div>
+<div class="counter" id="boxCzechy"><span data-i18n="teamCzechy">Czechy</span><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="czechySobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="czechyNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="czechyRezerwa">0</span></div></div>
+</div><p class="small" id="loadInfo"><span data-i18n="sheetInfo">Dane są pobierane z Google Sheets.</span></p><button class="secondary" onclick="loadData()" data-i18n="refresh">Odśwież dane</button></section>
 
 <section class="card"><details><summary data-i18n="preview">Podgląd zapisanych osób</summary><p class="small"><span data-i18n="visibleForAll">Widoczny dla każdego.</span></p><div class="publicList"><table><thead><tr><th data-i18n="nick">Nick</th><th data-i18n="team">Drużyna</th><th data-i18n="package">Pakiet</th><th data-i18n="saturday">Sobota</th><th data-i18n="sunday">Niedziela</th><th data-i18n="status">Status</th></tr></thead><tbody id="publicRows"></tbody></table></div></details></section>
 
@@ -194,7 +159,7 @@ async function loadData(){const info=document.getElementById("loadInfo");try{inf
 function confirmed(team){return entries.filter(e=>e.druzyna===team&&(e.status||"POTWIERDZONY")==="POTWIERDZONY")}
 function reserve(team){return entries.filter(e=>e.druzyna===team&&e.status==="REZERWA")}
 function counts(){return{Polska:confirmed("Polska").length,Czechy:confirmed("Czechy").length,PolskaRezerwa:reserve("Polska").length,CzechyRezerwa:reserve("Czechy").length,PolskaSobota:confirmed("Polska").filter(e=>e.sobota==="TAK").length,PolskaNiedziela:confirmed("Polska").filter(e=>e.niedziela==="TAK").length,CzechySobota:confirmed("Czechy").filter(e=>e.sobota==="TAK").length,CzechyNiedziela:confirmed("Czechy").filter(e=>e.niedziela==="TAK").length}}
-function updateCounters(){const c=counts();countPolska.textContent=c.Polska+" / "+LIMIT;countCzechy.textContent=c.Czechy+" / "+LIMIT;polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
+function updateCounters(){const c=counts();polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
 function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr><td colspan="6">Brak zapisanych osób.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td>`;publicRows.appendChild(tr)})}
 function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr><td colspan="11">Brak zgłoszeń.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td><td>${esc(e.nick)}</td><td>${esc(e.telefon||"")}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td><td>${esc(e.wiek)}</td><td>${esc(e.uwagi||"")}</td><td><button class="smallBtn secondary" onclick="editEntry('${e.id}')">Edytuj</button><button class="smallBtn danger" onclick="deleteEntry('${e.id}')">Usuń</button></td>`;adminRows.appendChild(tr)})}
 showRulesBtn.onclick=()=>{rulesBox.classList.remove("hidden");acceptRules.disabled=false;acceptRulesLabel.classList.remove("disabled")};
@@ -215,6 +180,26 @@ async function deleteEntry(id){if(!confirm("Usunąć to zgłoszenie?"))return;aw
 function exportCSV(){const h=["Data","Nick","Telefon lub Konto FB","Drużyna","Pakiet","Sobota","Niedziela","Status","Wiek","Regulamin","Uwagi"];const rows=entries.map(e=>[e.data,e.nick,e.telefon,e.druzyna,e.pakiet,e.sobota,e.niedziela,e.status||"POTWIERDZONY",e.wiek,e.regulamin,e.uwagi]);const csv=[h,...rows].map(r=>r.map(v=>'"'+String(v||"").replaceAll('"','""')+'"').join(";")).join("\\n");const blob=new Blob(["\\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="zapisy_zielona_chmura.csv";a.click();URL.revokeObjectURL(url)}
 function esc(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 if(sessionStorage.getItem("asg_admin")){loginBox.classList.add("hidden");adminPanel.classList.remove("hidden")}loadData();
+
+const EVENT_DATE = new Date("2026-08-15T09:00:00");
+function updateCountdown(){
+ const now=new Date();
+ let diff=EVENT_DATE-now;
+ if(diff<0) diff=0;
+ const d=Math.floor(diff/86400000);
+ const h=Math.floor((diff%86400000)/3600000);
+ const m=Math.floor((diff%3600000)/60000);
+ const s=Math.floor((diff%60000)/1000);
+ if(document.getElementById('cdDays')){
+   cdDays.textContent=d;
+   cdHours.textContent=h;
+   cdMinutes.textContent=m;
+   cdSeconds.textContent=s;
+ }
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+
 </script>
 </body>
 </html>
