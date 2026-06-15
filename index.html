@@ -27,18 +27,18 @@
 <main>
 
 <section class="card">
-<h2>Odliczanie do wydarzenia</h2>
+<h2 data-i18n="countdownTitle">Odliczanie do wydarzenia</h2>
 <div class="countdown">
-<div class="timeBox"><strong id="cdDays">0</strong><span>Dni</span></div>
-<div class="timeBox"><strong id="cdHours">0</strong><span>Godzin</span></div>
-<div class="timeBox"><strong id="cdMinutes">0</strong><span>Minut</span></div>
-<div class="timeBox"><strong id="cdSeconds">0</strong><span>Sekund</span></div>
+<div class="timeBox"><strong id="cdDays">0</strong><span data-i18n="days">Dni</span></div>
+<div class="timeBox"><strong id="cdHours">0</strong><span data-i18n="hours">Godzin</span></div>
+<div class="timeBox"><strong id="cdMinutes">0</strong><span data-i18n="minutes">Minut</span></div>
+<div class="timeBox"><strong id="cdSeconds">0</strong><span data-i18n="seconds">Sekund</span></div>
 </div>
 </section>
 
-<section class="card"><h2 data-i18n="counterTitle">Liczba zapisanych na dni gry</h2><div class="counter-grid">
-<div class="counter" id="boxPolska"><span data-i18n="teamPoland">Polska</span><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="polskaSobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="polskaNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="polskaRezerwa">0</span></div></div>
-<div class="counter" id="boxCzechy"><span data-i18n="teamCzechy">Czechy</span><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="czechySobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="czechyNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="czechyRezerwa">0</span></div></div>
+<section class="card"><h2 data-i18n="counterTitle">Licznik zapisanych osób</h2><div class="counter-grid">
+<div class="counter" id="boxPolska"><span data-i18n="teamPoland">Polska</span><strong id="countPolska">Ładowanie...</strong><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="polskaSobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="polskaNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="polskaRezerwa">0</span></div></div>
+<div class="counter" id="boxCzechy"><span data-i18n="teamCzechy">Czechy</span><strong id="countCzechy">Ładowanie...</strong><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="czechySobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="czechyNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="czechyRezerwa">0</span></div></div>
 </div><p class="small" id="loadInfo"><span data-i18n="sheetInfo">Dane są pobierane z Google Sheets.</span></p><button class="secondary" onclick="loadData()" data-i18n="refresh">Odśwież dane</button></section>
 
 <section class="card"><details><summary data-i18n="preview">Podgląd zapisanych osób</summary><p class="small"><span data-i18n="visibleForAll">Widoczny dla każdego.</span></p><div class="publicList"><table><thead><tr><th data-i18n="nick">Nick</th><th data-i18n="team">Drużyna</th><th data-i18n="package">Pakiet</th><th data-i18n="saturday">Sobota</th><th data-i18n="sunday">Niedziela</th><th data-i18n="status">Status</th></tr></thead><tbody id="publicRows"></tbody></table></div></details></section>
@@ -69,7 +69,7 @@
 
 <script>
 const I18N = {
-  pl: {
+  pl: {countdownTitle:"Do wydarzenia pozostało",days:"Dni",hours:"Godzin",minutes:"Minut",seconds:"Sekund",
     subtitle:"Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026",
     counterTitle:"Ilość zapisanych osób", teamPoland:"Polska", teamCzechy:"Czechy", saturday:"Sobota", sunday:"Niedziela", reserve:"Rezerwa",
     sheetInfo:"Dane są pobierane z Google Sheets.", refresh:"Odśwież dane", preview:"Podgląd zapisanych osób", visibleForAll:"Widoczny dla każdego.",
@@ -82,7 +82,7 @@ const I18N = {
     acceptRules:"Akceptuję regulamin", notes:"Uwagi", notesPlaceholder:"np. replika, frakcja, dodatkowe informacje", submit:"Wyślij zgłoszenie", cancelEdit:"Anuluj edycję",
     adminPanel:"Panel admina", adminPassword:"Hasło admina", enterPanel:"Wejdź do panelu", logout:"Wyloguj", exportCsv:"Eksport CSV", entriesList:"Lista zgłoszeń", date:"Data", contactFb:"Kontakt/FB", age:"Wiek", actions:"Akcje"
   },
-  cs: {
+  cs: {countdownTitle:"Do akce zbývá",days:"Dní",hours:"Hodin",minutes:"Minut",seconds:"Sekund",
     subtitle:"Registrace na akci: Polsko vs Česko 15/16.08.2026",
     counterTitle:"Počet přihlášených osob", teamPoland:"Polsko", teamCzechy:"Česko", saturday:"Sobota", sunday:"Neděle", reserve:"Náhradníci",
     sheetInfo:"Data se načítají z Google Sheets.", refresh:"Obnovit data", preview:"Náhled přihlášených osob", visibleForAll:"Viditelné pro všechny.",
@@ -95,7 +95,7 @@ const I18N = {
     acceptRules:"Souhlasím s pravidly", notes:"Poznámky", notesPlaceholder:"např. replika, frakce, další informace", submit:"Odeslat přihlášku", cancelEdit:"Zrušit úpravy",
     adminPanel:"Admin panel", adminPassword:"Heslo admina", enterPanel:"Vstoupit do panelu", logout:"Odhlásit", exportCsv:"Export CSV", entriesList:"Seznam přihlášek", date:"Datum", contactFb:"Kontakt/FB", age:"Věk", actions:"Akce"
   },
-  uk: {
+  uk: {countdownTitle:"До події залишилося",days:"Днів",hours:"Годин",minutes:"Хвилин",seconds:"Секунд",
     subtitle:"Реєстрація на подію: Польща vs Чехія 15/16.08.2026",
     counterTitle:"Кількість зареєстрованих осіб", teamPoland:"Польща", teamCzechy:"Чехія", saturday:"Субота", sunday:"Неділя", reserve:"Резерв",
     sheetInfo:"Дані завантажуються з Google Sheets.", refresh:"Оновити дані", preview:"Перегляд зареєстрованих осіб", visibleForAll:"Видно для всіх.",
@@ -108,7 +108,7 @@ const I18N = {
     acceptRules:"Приймаю регламент", notes:"Примітки", notesPlaceholder:"напр. репліка, фракція, додаткова інформація", submit:"Надіслати заявку", cancelEdit:"Скасувати редагування",
     adminPanel:"Панель адміністратора", adminPassword:"Пароль адміністратора", enterPanel:"Увійти в панель", logout:"Вийти", exportCsv:"Експорт CSV", entriesList:"Список заявок", date:"Дата", contactFb:"Контакт/FB", age:"Вік", actions:"Дії"
   },
-  en: {
+  en: {countdownTitle:"Time until event",days:"Days",hours:"Hours",minutes:"Minutes",seconds:"Seconds",
     subtitle:"Registration for event: Poland vs Czechia 15/16.08.2026",
     counterTitle:"Registered players counter", teamPoland:"Poland", teamCzechy:"Czechia", saturday:"Saturday", sunday:"Sunday", reserve:"Reserve list",
     sheetInfo:"Data is loaded from Google Sheets.", refresh:"Refresh data", preview:"Registered players preview", visibleForAll:"Visible to everyone.",
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzpa0BwiPcEU2S7amiFV-vQ0N_Zj_ZRAYHmiuEO-2RSElxbr4TD0xLqSIXPuZGR1vE/exec";
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzx8OPF_s_b_6ALBBOGGT-LyKBL5ST5tFbnLpA5sxJKyQgrAZQMyPV3vLV7yEkA2BwW/exec";
 const LIMIT=25;
 const ADMIN_PASSWORD="Barcelonia12";
 let entries=[];
@@ -159,7 +159,7 @@ async function loadData(){const info=document.getElementById("loadInfo");try{inf
 function confirmed(team){return entries.filter(e=>e.druzyna===team&&(e.status||"POTWIERDZONY")==="POTWIERDZONY")}
 function reserve(team){return entries.filter(e=>e.druzyna===team&&e.status==="REZERWA")}
 function counts(){return{Polska:confirmed("Polska").length,Czechy:confirmed("Czechy").length,PolskaRezerwa:reserve("Polska").length,CzechyRezerwa:reserve("Czechy").length,PolskaSobota:confirmed("Polska").filter(e=>e.sobota==="TAK").length,PolskaNiedziela:confirmed("Polska").filter(e=>e.niedziela==="TAK").length,CzechySobota:confirmed("Czechy").filter(e=>e.sobota==="TAK").length,CzechyNiedziela:confirmed("Czechy").filter(e=>e.niedziela==="TAK").length}}
-function updateCounters(){const c=counts();polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
+function updateCounters(){const c=counts();countPolska.textContent=c.Polska+" / "+LIMIT;countCzechy.textContent=c.Czechy+" / "+LIMIT;polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
 function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr><td colspan="6">Brak zapisanych osób.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td>`;publicRows.appendChild(tr)})}
 function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr><td colspan="11">Brak zgłoszeń.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td><td>${esc(e.nick)}</td><td>${esc(e.telefon||"")}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td><td>${esc(e.wiek)}</td><td>${esc(e.uwagi||"")}</td><td><button class="smallBtn secondary" onclick="editEntry('${e.id}')">Edytuj</button><button class="smallBtn danger" onclick="deleteEntry('${e.id}')">Usuń</button></td>`;adminRows.appendChild(tr)})}
 showRulesBtn.onclick=()=>{rulesBox.classList.remove("hidden");acceptRules.disabled=false;acceptRulesLabel.classList.remove("disabled")};
