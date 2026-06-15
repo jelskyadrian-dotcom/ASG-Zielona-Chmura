@@ -78,11 +78,11 @@
 </section>
 
 <section class="card">
-<h2 data-i18n="counterTitle">Licznik zapisanych osób</h2>
+<h2 data-i18n="counterTitle">Liczba zapisanych na dni gry</h2>
 <div class="counter-grid">
 <div class="counter" id="boxPolska">
 <span data-i18n="teamPoland">Polska</span>
-<strong id="countPolska">Ładowanie...</strong>
+
 <div class="daySplit">
 <div class="dayBox">
 <span data-i18n="saturday">Sobota</span>
@@ -100,7 +100,7 @@
 </div>
 <div class="counter" id="boxCzechy">
 <span data-i18n="teamCzechy">Czechy</span>
-<strong id="countCzechy">Ładowanie...</strong>
+
 <div class="daySplit">
 <div class="dayBox">
 <span data-i18n="saturday">Sobota</span>
@@ -303,7 +303,7 @@
 const I18N = {
   pl: {adminToggle:"🔒 Panel administratora",countdownTitle:"Do wydarzenia pozostało",days:"Dni",hours:"Godzin",minutes:"Minut",seconds:"Sekund",
     subtitle:"Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026",
-    counterTitle:"Ilość zapisanych osób", teamPoland:"Polska", teamCzechy:"Czechy", saturday:"Sobota", sunday:"Niedziela", reserve:"Rezerwa",
+    counterTitle:"Liczba zapisanych na dni gry", teamPoland:"Polska", teamCzechy:"Czechy", saturday:"Sobota", sunday:"Niedziela", reserve:"Rezerwa",
     sheetInfo:"Dane są pobierane z Google Sheets.", refresh:"Odśwież dane", preview:"Podgląd zapisanych osób", visibleForAll:"Widoczny dla każdego.",
     nick:"Nick", team:"Drużyna", package:"Pakiet", status:"Status", docs:"Dokumenty", openRules:"Otwórz regulamin PDF", downloadMinor:"Pobierz oświadczenie dla nieletniego",
     signupTitle:"Zapisz się na wydarzenie", eventChoice:"Wybór wydarzenia", nickName:"Nick / Imię", phoneFb:"Telefon lub Konto FB", optional:"opcjonalnie",requiredContact:"wymagane",groupSignup:"Zapis grupowy",groupCount:"Liczba osób do zapisu",groupContactInfo:"Kontakt podajesz tylko raz — dla osoby zapisującej grupę.",personLabel:"Osoba",personPlaceholder:"Nick / imię osoby",groupSent:"Zgłoszenia grupowe wysłane do arkusza.",groupReserveInfo:"Część osób może trafić na listę rezerwową, jeśli limit miejsc został osiągnięty.",
@@ -316,7 +316,7 @@ const I18N = {
   },
   cs: {adminToggle:"🔒 Panel administrátora",countdownTitle:"Do akce zbývá",days:"Dní",hours:"Hodin",minutes:"Minut",seconds:"Sekund",
     subtitle:"Registrace na akci: Polsko vs Česko 15/16.08.2026",
-    counterTitle:"Počet přihlášených osob", teamPoland:"Polsko", teamCzechy:"Česko", saturday:"Sobota", sunday:"Neděle", reserve:"Náhradníci",
+    counterTitle:"Počet přihlášených podle dnů", teamPoland:"Polsko", teamCzechy:"Česko", saturday:"Sobota", sunday:"Neděle", reserve:"Náhradníci",
     sheetInfo:"Data se načítají z Google Sheets.", refresh:"Obnovit data", preview:"Náhled přihlášených osob", visibleForAll:"Viditelné pro všechny.",
     nick:"Přezdívka", team:"Tým", package:"Balíček", status:"Status", docs:"Dokumenty", openRules:"Otevřít pravidla PDF", downloadMinor:"Stáhnout prohlášení pro nezletilé",
     signupTitle:"Přihlásit se na akci", eventChoice:"Výběr akce", nickName:"Přezdívka / Jméno", phoneFb:"Telefon nebo Facebook účet", optional:"volitelné",requiredContact:"povinné",groupSignup:"Skupinová registrace",groupCount:"Počet osob k registraci",groupContactInfo:"Kontakt zadáváš pouze jednou — pro osobu registrující skupinu.",personLabel:"Osoba",personPlaceholder:"Přezdívka / jméno osoby",groupSent:"Skupinové přihlášky byly odeslány do tabulky.",groupReserveInfo:"Část osob může být zařazena na seznam náhradníků, pokud byl dosažen limit míst.",
@@ -329,7 +329,7 @@ const I18N = {
   },
   uk: {adminToggle:"🔒 Панель адміністратора",countdownTitle:"До події залишилося",days:"Днів",hours:"Годин",minutes:"Хвилин",seconds:"Секунд",
     subtitle:"Реєстрація на подію: Польща vs Чехія 15/16.08.2026",
-    counterTitle:"Кількість зареєстрованих осіб", teamPoland:"Польща", teamCzechy:"Чехія", saturday:"Субота", sunday:"Неділя", reserve:"Резерв",
+    counterTitle:"Кількість зареєстрованих за днями", teamPoland:"Польща", teamCzechy:"Чехія", saturday:"Субота", sunday:"Неділя", reserve:"Резерв",
     sheetInfo:"Дані завантажуються з Google Sheets.", refresh:"Оновити дані", preview:"Перегляд зареєстрованих осіб", visibleForAll:"Видно для всіх.",
     nick:"Нік", team:"Команда", package:"Пакет", status:"Статус", docs:"Документи", openRules:"Відкрити регламент PDF", downloadMinor:"Завантажити заяву для неповнолітнього",
     signupTitle:"Зареєструватися на подію", eventChoice:"Вибір події", nickName:"Нік / Ім’я", phoneFb:"Телефон або акаунт FB", optional:"необов’язково",requiredContact:"обов’язково",groupSignup:"Групова реєстрація",groupCount:"Кількість осіб для реєстрації",groupContactInfo:"Контакт вказується лише один раз — для особи, яка реєструє групу.",personLabel:"Особа",personPlaceholder:"Нік / ім’я особи",groupSent:"Групові заявки надіслано до таблиці.",groupReserveInfo:"Деякі особи можуть потрапити в резервний список, якщо ліміт місць досягнуто.",
@@ -342,7 +342,7 @@ const I18N = {
   },
   en: {adminToggle:"🔒 Admin panel",countdownTitle:"Time until event",days:"Days",hours:"Hours",minutes:"Minutes",seconds:"Seconds",
     subtitle:"Registration for event: Poland vs Czechia 15/16.08.2026",
-    counterTitle:"Registered players counter", teamPoland:"Poland", teamCzechy:"Czechia", saturday:"Saturday", sunday:"Sunday", reserve:"Reserve list",
+    counterTitle:"Players registered by game day", teamPoland:"Poland", teamCzechy:"Czechia", saturday:"Saturday", sunday:"Sunday", reserve:"Reserve list",
     sheetInfo:"Data is loaded from Google Sheets.", refresh:"Refresh data", preview:"Registered players preview", visibleForAll:"Visible to everyone.",
     nick:"Nickname", team:"Team", package:"Package", status:"Status", docs:"Documents", openRules:"Open rules PDF", downloadMinor:"Download minor consent form",
     signupTitle:"Sign up for the event", eventChoice:"Event selection", nickName:"Nickname / Name", phoneFb:"Phone or Facebook account", optional:"optional",requiredContact:"required",groupSignup:"Group signup",groupCount:"Number of people to register",groupContactInfo:"You enter contact details only once — for the person registering the group.",personLabel:"Person",personPlaceholder:"Nickname / name of person",groupSent:"Group registrations were sent to the sheet.",groupReserveInfo:"Some people may go to the reserve list if the place limit has been reached.",
@@ -391,18 +391,14 @@ async function loadData(){const info=document.getElementById("loadInfo");try{inf
 function confirmed(team){return entries.filter(e=>e.druzyna===team&&(e.status||"POTWIERDZONY")==="POTWIERDZONY")}
 function reserve(team){return entries.filter(e=>e.druzyna===team&&e.status==="REZERWA")}
 function counts(){return{Polska:confirmed("Polska").length,Czechy:confirmed("Czechy").length,PolskaRezerwa:reserve("Polska").length,CzechyRezerwa:reserve("Czechy").length,PolskaSobota:confirmed("Polska").filter(e=>e.sobota==="TAK").length,PolskaNiedziela:confirmed("Polska").filter(e=>e.niedziela==="TAK").length,CzechySobota:confirmed("Czechy").filter(e=>e.sobota==="TAK").length,CzechyNiedziela:confirmed("Czechy").filter(e=>e.niedziela==="TAK").length}}
-function updateCounters(){const c=counts();countPolska.textContent=c.Polska+" / "+LIMIT;countCzechy.textContent=c.Czechy+" / "+LIMIT;polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
-function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr>
-<td colspan="6">Brak zapisanych osób.</td>
-</tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td>
+function updateCounters(){const c=counts();polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
+function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr><td colspan="6">Brak zapisanych osób.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td>
 <td>${esc(e.druzyna)}</td>
 <td>${esc(e.pakiet)}</td>
 <td>${esc(e.sobota)}</td>
 <td>${esc(e.niedziela)}</td>
 <td>${esc(st)}</td>`;publicRows.appendChild(tr)})}
-function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr>
-<td colspan="11">Brak zgłoszeń.</td>
-</tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td>
+function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr><td colspan="11">Brak zgłoszeń.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td>
 <td>${esc(e.nick)}</td>
 <td>${esc(e.telefon||"")}</td>
 <td>${esc(e.druzyna)}</td>
@@ -430,13 +426,13 @@ function getSignupNames(){const isGroup=document.getElementById("groupSignup").c
 
 form.onsubmit=async e=>{e.preventDefault();const d=new FormData(form),id=editId.value,druzyna=d.get("druzyna"),pakiet=d.get("pakiet"),names=getSignupNames();if(!acceptRules.checked){showStatus("Najpierw wyświetl i zaakceptuj regulamin.","err");return}if(!d.get("telefon")||!String(d.get("telefon")).trim()){showStatus("Telefon lub Konto FB jest wymagane.","err");return}if(!names.length){showStatus("Uzupełnij osoby do zapisu.","err");return}try{submitBtn.disabled=true;if(id){const status=entries.filter(x=>x.druzyna===druzyna&&(x.status||"POTWIERDZONY")==="POTWIERDZONY"&&x.id!==id).length>=LIMIT?"REZERWA":"POTWIERDZONY";const entry={id,wydarzenie:d.get("wydarzenie"),nick:names[0],telefon:d.get("telefon"),druzyna,pakiet,sobota:pakiet==="Sobota"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",niedziela:pakiet==="Niedziela"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",status,wiek:d.get("wiek"),regulamin:acceptRules.checked?"TAK":"NIE",uwagi:d.get("uwagi")};await api("update",entry);showStatus("Zgłoszenie zaktualizowane.","ok")}else{let confirmedSoFar=entries.filter(x=>x.druzyna===druzyna&&(x.status||"POTWIERDZONY")==="POTWIERDZONY").length;let reserveUsed=false;for(const personName of names){const status=confirmedSoFar>=LIMIT?"REZERWA":"POTWIERDZONY";if(status==="REZERWA")reserveUsed=true;else confirmedSoFar++;const entry={id:"",wydarzenie:d.get("wydarzenie"),nick:personName,telefon:d.get("telefon"),druzyna,pakiet,sobota:pakiet==="Sobota"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",niedziela:pakiet==="Niedziela"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",status,wiek:d.get("wiek"),regulamin:acceptRules.checked?"TAK":"NIE",uwagi:d.get("uwagi")};await api("add",entry)}const dict=currentLangDict();showStatus(names.length>1?(dict.groupSent+(reserveUsed?" "+dict.groupReserveInfo:"")):(reserveUsed?"Zgłoszenie wysłane na listę rezerwową.":"Zgłoszenie wysłane do arkusza."),reserveUsed?"warn":"ok")}resetFormMode();await loadData()}catch(err){showStatus("Błąd zapisu: "+err.message,"err")}finally{submitBtn.disabled=false}};
 function resetFormMode(){form.reset();editId.value="";document.getElementById("groupSignup").checked=false;toggleGroupSignup();submitBtn.textContent="Wyślij zgłoszenie";cancelEditBtn.classList.add("hidden");minorBox.classList.add("hidden");acceptRules.checked=false;acceptRules.disabled=true;acceptRulesLabel.classList.add("disabled");rulesBox.classList.add("hidden");updateCounters()}
-function loginAdmin(){if(adminPass.value!==ADMIN_PASSWORD){alert("Błędne hasło.");return}sessionStorage.setItem("asg_admin","1");loginBox.classList.add("hidden");adminPanel.classList.remove("hidden");renderAdmin()}
+function loginAdmin(){if(adminPass.value!==ADMIN_PASSWORD){alert("Błędne hasło.");return}sessionStorage.setItem("asg_admin","1");loginBox.classList.add("hidden");adminPanel.classList.remove("hidden");const d=document.getElementById("adminDetails");if(d)d.open=true;renderAdmin()}
 function logoutAdmin(){sessionStorage.removeItem("asg_admin");loginBox.classList.remove("hidden");adminPanel.classList.add("hidden")}
 function editEntry(id){const e=entries.find(x=>x.id===id);if(!e)return;document.getElementById("groupSignup").checked=false;toggleGroupSignup();editId.value=e.id;wydarzenie.value=e.wydarzenie;nick.value=e.nick;telefon.value=e.telefon||"";document.querySelector(`input[name="druzyna"][value="${e.druzyna}"]`).checked=true;document.querySelector(`input[name="pakiet"][value="${e.pakiet}"]`).checked=true;document.querySelector(`input[name="wiek"][value="${e.wiek}"]`).checked=true;uwagi.value=e.uwagi||"";rulesBox.classList.remove("hidden");acceptRules.disabled=false;acceptRules.checked=true;acceptRulesLabel.classList.remove("disabled");minorBox.classList.toggle("hidden",!e.wiek.includes("Nie mam 18 lat"));submitBtn.textContent="Zapisz zmiany";cancelEditBtn.classList.remove("hidden");window.scrollTo({top:250,behavior:"smooth"})}
 async function deleteEntry(id){if(!confirm("Usunąć to zgłoszenie?"))return;await api("delete",{id});await loadData()}
 function exportCSV(){const h=["Data","Nick","Telefon lub Konto FB","Drużyna","Pakiet","Sobota","Niedziela","Status","Wiek","Regulamin","Uwagi"];const rows=entries.map(e=>[e.data,e.nick,e.telefon,e.druzyna,e.pakiet,e.sobota,e.niedziela,e.status||"POTWIERDZONY",e.wiek,e.regulamin,e.uwagi]);const csv=[h,...rows].map(r=>r.map(v=>'"'+String(v||"").replaceAll('"','""')+'"').join(";")).join("\\n");const blob=new Blob(["\\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="zapisy_zielona_chmura.csv";a.click();URL.revokeObjectURL(url)}
 function esc(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-if(sessionStorage.getItem("asg_admin")){loginBox.classList.add("hidden");adminPanel.classList.remove("hidden")}loadData();
+if(sessionStorage.getItem("asg_admin")){loginBox.classList.add("hidden");adminPanel.classList.remove("hidden");const d=document.getElementById("adminDetails");if(d)d.open=true;}loadData();
 
 const EVENT_DATE = new Date("2026-08-15T09:00:00");
 function updateCountdown(){
