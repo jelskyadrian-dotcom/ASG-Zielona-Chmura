@@ -74,6 +74,16 @@
 .singleCounter{grid-template-columns:1fr}
 @media(max-width:750px){.event-menu{grid-template-columns:1fr}}
 
+
+.registeredBox{
+  background:#009933 !important;
+  border-color:#74b843 !important;
+  color:#ffffff !important;
+}
+
+.registeredBox span{
+  color:#ffffff !important;
+}
 </style>
 </head>
 <body>
@@ -172,10 +182,7 @@
 </div>
 <div class="counter hidden" id="boxUbojnia">
 <span data-i18n="registered">Zapisani</span>
-<div class="reserveBox registeredBox">
-    <span>Zapisani</span>
-    <span id="ubojniaZapisani">0</span>
-</div>
+<div class="reserveBox registeredBox"><span data-i18n="registered">Zapisani</span><span id="ubojniaZapisani">0 / 50</span></div>
 <div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="ubojniaRezerwa">0</span></div>
 </div>
 </div>
@@ -194,7 +201,7 @@
 <div class="publicList">
 <table>
 <thead>
-<tr>
+<tr id="publicTableHead">
 <th data-i18n="nick">Nick</th>
 <th data-i18n="team">Drużyna</th>
 <th data-i18n="package">Pakiet</th>
@@ -579,18 +586,50 @@ function counts(){
 }
 function updateCounters(){const c=counts();
 if(currentEvent&&!currentEvent.teamMode){
-  ubojniaZapisani.textContent=c.Ubojnia;
+  ubojniaZapisani.textContent=c.Ubojnia+" / "+currentEvent.limit;
   ubojniaRezerwa.textContent=c.UbojniaRezerwa;
   boxUbojnia.classList.toggle("full",c.Ubojnia>=currentEvent.limit);
   return;
 }
 polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const limit=currentEvent?currentEvent.limit:LIMIT;const pf=c.Polska>=limit,cf=c.Czechy>=limit;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
-function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr><td colspan="6">Brak zapisanych osób.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td>
-<td>${esc(e.druzyna)}</td>
-<td>${esc(e.pakiet)}</td>
-<td>${esc(e.sobota)}</td>
-<td>${esc(e.niedziela)}</td>
-<td>${esc(st)}</td>`;publicRows.appendChild(tr)})}
+
+function renderPublicHead(){
+  const head=document.getElementById("publicTableHead");
+  if(!head)return;
+  if(currentEvent&&!currentEvent.teamMode){
+    head.innerHTML='<th data-i18n="nick">Nick</th><th data-i18n="package">Pakiet</th><th data-i18n="rentGear">Wypożyczenie sprzętu</th>';
+  }else{
+    head.innerHTML='<th data-i18n="nick">Nick</th><th data-i18n="team">Drużyna</th><th data-i18n="package">Pakiet</th><th data-i18n="saturday">Sobota</th><th data-i18n="sunday">Niedziela</th><th data-i18n="status">Status</th>';
+  }
+  const lang=localStorage.getItem("asg_lang")||"pl";
+  const dict=I18N[lang]||I18N.pl;
+  head.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(dict[key])el.textContent=dict[key];
+  });
+}
+
+function renderPublic(){
+  renderPublicHead();
+  publicRows.innerHTML="";
+  const isSingle=currentEvent&&!currentEvent.teamMode;
+  const colspan=isSingle?3:6;
+  if(!entries.length){
+    publicRows.innerHTML='<tr><td colspan="'+colspan+'">Brak zapisanych osób.</td></tr>';
+    return;
+  }
+  entries.forEach(e=>{
+    let st=e.status||"POTWIERDZONY";
+    let tr=document.createElement("tr");
+    if(st==="REZERWA")tr.classList.add("reserveRow");
+    if(isSingle){
+      tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.wypozyczenie||"NIE")}</td>`;
+    }else{
+      tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td>`;
+    }
+    publicRows.appendChild(tr);
+  });
+}
 function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr><td colspan="12">Brak zgłoszeń.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td>
 <td>${esc(e.nick)}</td>
 <td>${esc(e.telefon||"")}</td>
