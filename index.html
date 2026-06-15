@@ -10,6 +10,25 @@
 .timeBox{background:#101810;border:1px solid #496849;border-radius:12px;padding:12px;text-align:center}
 .timeBox strong{display:block;color:#b7f07a;font-size:30px}
 
+
+.admin-card details {
+  background: #142014;
+  border: 1px solid #496849;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.admin-card summary {
+  cursor: pointer;
+  color: #b7f07a;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.admin-content {
+  margin-top: 16px;
+}
+
 </style>
 </head>
 <body>
@@ -22,56 +41,269 @@
 <option value="en">English</option>
 </select>
 </div>
-<div class="headerInner"><img src="./logo.png?v=5" class="logo"><div><h1>ASG Zielona Chmura</h1><p data-i18n="subtitle">Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026</p></div><img src="./logo.png?v=5" class="logo"></div></header>
-<section class="hero"><img src="./Baner.png?v=1" alt="Polska vs Czechy"></section>
+<div class="headerInner">
+<img src="./logo.png?v=5" class="logo">
+<div>
+<h1>ASG Zielona Chmura</h1>
+<p data-i18n="subtitle">Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026</p>
+</div>
+<img src="./logo.png?v=5" class="logo">
+</div>
+</header>
+<section class="hero">
+<img src="./Baner.png?v=1" alt="Polska vs Czechy">
+</section>
 <main>
 
 <section class="card">
 <h2 data-i18n="countdownTitle">Odliczanie do wydarzenia</h2>
 <div class="countdown">
-<div class="timeBox"><strong id="cdDays">0</strong><span data-i18n="days">Dni</span></div>
-<div class="timeBox"><strong id="cdHours">0</strong><span data-i18n="hours">Godzin</span></div>
-<div class="timeBox"><strong id="cdMinutes">0</strong><span data-i18n="minutes">Minut</span></div>
-<div class="timeBox"><strong id="cdSeconds">0</strong><span data-i18n="seconds">Sekund</span></div>
+<div class="timeBox">
+<strong id="cdDays">0</strong>
+<span data-i18n="days">Dni</span>
+</div>
+<div class="timeBox">
+<strong id="cdHours">0</strong>
+<span data-i18n="hours">Godzin</span>
+</div>
+<div class="timeBox">
+<strong id="cdMinutes">0</strong>
+<span data-i18n="minutes">Minut</span>
+</div>
+<div class="timeBox">
+<strong id="cdSeconds">0</strong>
+<span data-i18n="seconds">Sekund</span>
+</div>
 </div>
 </section>
 
-<section class="card"><h2 data-i18n="counterTitle">Liczba zapisanych na dni gry</h2><div class="counter-grid">
-<div class="counter" id="boxPolska"><span data-i18n="teamPoland">Polska</span><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="polskaSobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="polskaNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="polskaRezerwa">0</span></div></div>
-<div class="counter" id="boxCzechy"><span data-i18n="teamCzechy">Czechy</span><div class="daySplit"><div class="dayBox"><span data-i18n="saturday">Sobota</span><span id="czechySobota">0</span></div><div class="dayBox"><span data-i18n="sunday">Niedziela</span><span id="czechyNiedziela">0</span></div></div><div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="czechyRezerwa">0</span></div></div>
-</div><p class="small" id="loadInfo"><span data-i18n="sheetInfo">Dane są pobierane z Google Sheets.</span></p><button class="secondary" onclick="loadData()" data-i18n="refresh">Odśwież dane</button></section>
+<section class="card">
+<h2 data-i18n="counterTitle">Licznik zapisanych osób</h2>
+<div class="counter-grid">
+<div class="counter" id="boxPolska">
+<span data-i18n="teamPoland">Polska</span>
+<strong id="countPolska">Ładowanie...</strong>
+<div class="daySplit">
+<div class="dayBox">
+<span data-i18n="saturday">Sobota</span>
+<span id="polskaSobota">0</span>
+</div>
+<div class="dayBox">
+<span data-i18n="sunday">Niedziela</span>
+<span id="polskaNiedziela">0</span>
+</div>
+</div>
+<div class="reserveBox">
+<span data-i18n="reserve">Rezerwa</span>
+<span id="polskaRezerwa">0</span>
+</div>
+</div>
+<div class="counter" id="boxCzechy">
+<span data-i18n="teamCzechy">Czechy</span>
+<strong id="countCzechy">Ładowanie...</strong>
+<div class="daySplit">
+<div class="dayBox">
+<span data-i18n="saturday">Sobota</span>
+<span id="czechySobota">0</span>
+</div>
+<div class="dayBox">
+<span data-i18n="sunday">Niedziela</span>
+<span id="czechyNiedziela">0</span>
+</div>
+</div>
+<div class="reserveBox">
+<span data-i18n="reserve">Rezerwa</span>
+<span id="czechyRezerwa">0</span>
+</div>
+</div>
+</div>
+<p class="small" id="loadInfo">
+<span data-i18n="sheetInfo">Dane są pobierane z Google Sheets.</span>
+</p>
+<button class="secondary" onclick="loadData()" data-i18n="refresh">Odśwież dane</button>
+</section>
 
-<section class="card"><details><summary data-i18n="preview">Podgląd zapisanych osób</summary><p class="small"><span data-i18n="visibleForAll">Widoczny dla każdego.</span></p><div class="publicList"><table><thead><tr><th data-i18n="nick">Nick</th><th data-i18n="team">Drużyna</th><th data-i18n="package">Pakiet</th><th data-i18n="saturday">Sobota</th><th data-i18n="sunday">Niedziela</th><th data-i18n="status">Status</th></tr></thead><tbody id="publicRows"></tbody></table></div></details></section>
+<section class="card">
+<details>
+<summary data-i18n="preview">Podgląd zapisanych osób</summary>
+<p class="small">
+<span data-i18n="visibleForAll">Widoczny dla każdego.</span>
+</p>
+<div class="publicList">
+<table>
+<thead>
+<tr>
+<th data-i18n="nick">Nick</th>
+<th data-i18n="team">Drużyna</th>
+<th data-i18n="package">Pakiet</th>
+<th data-i18n="saturday">Sobota</th>
+<th data-i18n="sunday">Niedziela</th>
+<th data-i18n="status">Status</th>
+</tr>
+</thead>
+<tbody id="publicRows">
+</tbody>
+</table>
+</div>
+</details>
+</section>
 
-<section class="card"><h2 data-i18n="docs">Dokumenty</h2><div class="fileLinks"><a href="regulamin.pdf" target="_blank" data-i18n="openRules">Otwórz regulamin PDF</a><a href="oswiadczenie.pdf" target="_blank" data-i18n="downloadMinor">Pobierz oświadczenie dla nieletniego</a></div></section>
+<section class="card">
+<h2 data-i18n="docs">Dokumenty</h2>
+<div class="fileLinks">
+<a href="regulamin.pdf" target="_blank" data-i18n="openRules">Otwórz regulamin PDF</a>
+<a href="oswiadczenie.pdf" target="_blank" data-i18n="downloadMinor">Pobierz oświadczenie dla nieletniego</a>
+</div>
+</section>
 
-<section class="card"><h2 data-i18n="signupTitle">Zapisz się na wydarzenie</h2><form id="signupForm"><input type="hidden" id="editId">
-<label data-i18n="eventChoice">Wybór wydarzenia</label><select id="wydarzenie" name="wydarzenie" required><option>Polska vs Czechy 15/16.08.2026</option></select>
-<div class="row"><div><label data-i18n="nickName">Nick / Imię</label><input id="nick" name="nick" required placeholder="np. Adrian / Zielony"></div><div><label data-i18n="phoneFb">Telefon lub Konto FB</label><input id="telefon" name="telefon" required placeholder="wymagane" data-i18n-placeholder="requiredContact"></div></div><div class="group-box">
-<label class="radio-box"><input type="checkbox" id="groupSignup" onchange="toggleGroupSignup()"> <span data-i18n="groupSignup">Zapis grupowy</span></label>
+<section class="card">
+<h2 data-i18n="signupTitle">Zapisz się na wydarzenie</h2>
+<form id="signupForm">
+<input type="hidden" id="editId">
+<label data-i18n="eventChoice">Wybór wydarzenia</label>
+<select id="wydarzenie" name="wydarzenie" required>
+<option>Polska vs Czechy 15/16.08.2026</option>
+</select>
+<div class="row">
+<div>
+<label data-i18n="nickName">Nick / Imię</label>
+<input id="nick" name="nick" required placeholder="np. Adrian / Zielony">
+</div>
+<div>
+<label data-i18n="phoneFb">Telefon lub Konto FB</label>
+<input id="telefon" name="telefon" required placeholder="wymagane" data-i18n-placeholder="requiredContact">
+</div>
+</div>
+<div class="group-box">
+<label class="radio-box">
+<input type="checkbox" id="groupSignup" onchange="toggleGroupSignup()"> <span data-i18n="groupSignup">Zapis grupowy</span>
+</label>
 <div id="groupOptions" class="hidden">
 <label for="groupCount" data-i18n="groupCount">Liczba osób do zapisu</label>
-<select id="groupCount" onchange="renderGroupFields()"><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select>
-<div id="groupPeople"></div>
+<select id="groupCount" onchange="renderGroupFields()">
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+<div id="groupPeople">
+</div>
 <p class="small" data-i18n="groupContactInfo">Kontakt podajesz tylko raz — dla osoby zapisującej grupę.</p>
-</div></div>
-<h3 data-i18n="team">Drużyna</h3><label class="radio-box" id="labelPolska"><input type="radio" name="druzyna" value="Polska" required> Polska<span class="reserveNote" id="polskaReserveNote" data-i18n="reserveNote">Brak miejsc — zapis trafi na listę rezerwową.</span></label><label class="radio-box" id="labelCzechy"><input type="radio" name="druzyna" value="Czechy" required> Czechy<span class="reserveNote" id="czechyReserveNote" data-i18n="reserveNote">Brak miejsc — zapis trafi na listę rezerwową.</span></label>
-<h3 data-i18n="gamePackage">Pakiet gry</h3><label class="radio-box"><input type="radio" name="pakiet" value="Sobota-Niedziela" required> <span data-i18n="satSunPackage">Sobota + Niedziela — 20 zł</span></label><label class="radio-box disabled"><input type="radio" name="pakiet" value="Sobota" disabled> <span data-i18n="satPackage">Sobota — 10 zł</span> <span class="note"><span data-i18n="availableFrom">Dostępne od 07.08.2026</span></span></label><label class="radio-box disabled"><input type="radio" name="pakiet" value="Niedziela" disabled> <span data-i18n="sunPackage">Niedziela — 10 zł</span> <span class="note"><span data-i18n="availableFrom">Dostępne od 07.08.2026</span></span></label>
-<h3 data-i18n="ageTitle">Wiek uczestnika</h3><label class="radio-box"><input type="radio" name="wiek" value="Mam 18 lat" required> <span data-i18n="adult">Mam 18 lat</span></label><label class="radio-box"><input type="radio" name="wiek" value="Nie mam 18 lat - pobieram formularz" required> <span data-i18n="minorDownload">Nie mam 18 lat — pobierz formularz</span></label><label class="radio-box"><input type="radio" name="wiek" value="Nie mam 18 lat - będę z opiekunem" required> <span data-i18n="minorGuardian">Nie mam 18 lat — będę z opiekunem</span></label>
-<div id="minorBox" class="hidden card" style="background:#142014;margin-top:12px"><strong data-i18n="minorFormTitle">Formularz dla osoby niepełnoletniej</strong><p><span data-i18n="minorFormText">Osoba niepełnoletnia musi mieć zgodę rodzica/opiekuna.</span></p><a href="oswiadczenie.pdf" target="_blank" style="color:#b7f07a" data-i18n="downloadMinor">Pobierz oświadczenie dla nieletniego</a></div>
-<h3 data-i18n="rules">Regulamin</h3><button type="button" class="secondary" id="showRulesBtn" data-i18n="showRules">Wyświetl regulamin</button><div id="rulesBox" class="reg-box hidden"><span data-i18n="rulesText">Regulamin dostępny jest w pliku PDF powyżej. Uczestnik potwierdza znajomość zasad bezpieczeństwa oraz udział na własną odpowiedzialność.</span></div><label class="radio-box disabled" id="acceptRulesLabel"><input type="checkbox" id="acceptRules" disabled required> <span data-i18n="acceptRules">Akceptuję regulamin</span></label>
-<label data-i18n="notes">Uwagi</label><textarea id="uwagi" name="uwagi" placeholder="np. replika, frakcja, dodatkowe informacje" data-i18n-placeholder="notesPlaceholder"></textarea>
-<button type="submit" id="submitBtn" data-i18n="submit">Wyślij zgłoszenie</button><button type="button" class="secondary hidden" id="cancelEditBtn" data-i18n="cancelEdit">Anuluj edycję</button><div id="status" class="status"></div></form></section>
+</div>
+</div>
+<h3 data-i18n="team">Drużyna</h3>
+<label class="radio-box" id="labelPolska">
+<input type="radio" name="druzyna" value="Polska" required> Polska<span class="reserveNote" id="polskaReserveNote" data-i18n="reserveNote">Brak miejsc — zapis trafi na listę rezerwową.</span>
+</label>
+<label class="radio-box" id="labelCzechy">
+<input type="radio" name="druzyna" value="Czechy" required> Czechy<span class="reserveNote" id="czechyReserveNote" data-i18n="reserveNote">Brak miejsc — zapis trafi na listę rezerwową.</span>
+</label>
+<h3 data-i18n="gamePackage">Pakiet gry</h3>
+<label class="radio-box">
+<input type="radio" name="pakiet" value="Sobota-Niedziela" required> <span data-i18n="satSunPackage">Sobota + Niedziela — 20 zł</span>
+</label>
+<label class="radio-box disabled">
+<input type="radio" name="pakiet" value="Sobota" disabled> <span data-i18n="satPackage">Sobota — 10 zł</span> <span class="note">
+<span data-i18n="availableFrom">Dostępne od 07.08.2026</span>
+</span>
+</label>
+<label class="radio-box disabled">
+<input type="radio" name="pakiet" value="Niedziela" disabled> <span data-i18n="sunPackage">Niedziela — 10 zł</span> <span class="note">
+<span data-i18n="availableFrom">Dostępne od 07.08.2026</span>
+</span>
+</label>
+<h3 data-i18n="ageTitle">Wiek uczestnika</h3>
+<label class="radio-box">
+<input type="radio" name="wiek" value="Mam 18 lat" required> <span data-i18n="adult">Mam 18 lat</span>
+</label>
+<label class="radio-box">
+<input type="radio" name="wiek" value="Nie mam 18 lat - pobieram formularz" required> <span data-i18n="minorDownload">Nie mam 18 lat — pobierz formularz</span>
+</label>
+<label class="radio-box">
+<input type="radio" name="wiek" value="Nie mam 18 lat - będę z opiekunem" required> <span data-i18n="minorGuardian">Nie mam 18 lat — będę z opiekunem</span>
+</label>
+<div id="minorBox" class="hidden card" style="background:#142014;margin-top:12px">
+<strong data-i18n="minorFormTitle">Formularz dla osoby niepełnoletniej</strong>
+<p>
+<span data-i18n="minorFormText">Osoba niepełnoletnia musi mieć zgodę rodzica/opiekuna.</span>
+</p>
+<a href="oswiadczenie.pdf" target="_blank" style="color:#b7f07a" data-i18n="downloadMinor">Pobierz oświadczenie dla nieletniego</a>
+</div>
+<h3 data-i18n="rules">Regulamin</h3>
+<button type="button" class="secondary" id="showRulesBtn" data-i18n="showRules">Wyświetl regulamin</button>
+<div id="rulesBox" class="reg-box hidden">
+<span data-i18n="rulesText">Regulamin dostępny jest w pliku PDF powyżej. Uczestnik potwierdza znajomość zasad bezpieczeństwa oraz udział na własną odpowiedzialność.</span>
+</div>
+<label class="radio-box disabled" id="acceptRulesLabel">
+<input type="checkbox" id="acceptRules" disabled required> <span data-i18n="acceptRules">Akceptuję regulamin</span>
+</label>
+<label data-i18n="notes">Uwagi</label>
+<textarea id="uwagi" name="uwagi" placeholder="np. replika, frakcja, dodatkowe informacje" data-i18n-placeholder="notesPlaceholder">
+</textarea>
+<button type="submit" id="submitBtn" data-i18n="submit">Wyślij zgłoszenie</button>
+<button type="button" class="secondary hidden" id="cancelEditBtn" data-i18n="cancelEdit">Anuluj edycję</button>
+<div id="status" class="status">
+</div>
+</form>
+</section>
 
-<section class="card"><h2 data-i18n="adminPanel">Panel admina</h2><div id="loginBox"><label data-i18n="adminPassword">Hasło admina</label><input id="adminPass" type="password"><button onclick="loginAdmin()" data-i18n="enterPanel">Wejdź do panelu</button></div><div id="adminPanel" class="hidden"><div class="adminBar"><button class="secondary" onclick="logoutAdmin()" data-i18n="logout">Wyloguj</button><button class="secondary" onclick="exportCSV()" data-i18n="exportCsv">Eksport CSV</button></div><h3 data-i18n="entriesList">Lista zgłoszeń</h3><div style="overflow-x:auto"><table><thead><tr><th data-i18n="date">Data</th><th data-i18n="nick">Nick</th><th data-i18n="contactFb">Kontakt/FB</th><th data-i18n="team">Drużyna</th><th data-i18n="package">Pakiet</th><th data-i18n="saturday">Sobota</th><th data-i18n="sunday">Niedziela</th><th data-i18n="status">Status</th><th data-i18n="age">Wiek</th><th data-i18n="notes">Uwagi</th><th data-i18n="actions">Akcje</th></tr></thead><tbody id="adminRows"></tbody></table></div></div></section>
+<section class="card admin-card">
+  <details id="adminDetails">
+    <summary data-i18n="adminToggle">🔒 Panel administratora</summary>
+
+    <div class="admin-content">
+      <div id="loginBox">
+        <label data-i18n="adminPassword">Hasło admina</label>
+        <input id="adminPass" type="password">
+        <button onclick="loginAdmin()" data-i18n="enterPanel">Wejdź do panelu</button>
+      </div>
+
+      <div id="adminPanel" class="hidden">
+        <div class="adminBar">
+          <button class="secondary" onclick="logoutAdmin()" data-i18n="logout">Wyloguj</button>
+          <button class="secondary" onclick="exportCSV()" data-i18n="exportCsv">Eksport CSV</button>
+        </div>
+
+        <h3 data-i18n="entriesList">Lista zgłoszeń</h3>
+
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="date">Data</th>
+                <th data-i18n="nick">Nick</th>
+                <th data-i18n="contactFb">Kontakt/FB</th>
+                <th data-i18n="team">Drużyna</th>
+                <th data-i18n="package">Pakiet</th>
+                <th data-i18n="saturday">Sobota</th>
+                <th data-i18n="sunday">Niedziela</th>
+                <th data-i18n="status">Status</th>
+                <th data-i18n="age">Wiek</th>
+                <th data-i18n="notes">Uwagi</th>
+                <th data-i18n="actions">Akcje</th>
+              </tr>
+            </thead>
+            <tbody id="adminRows">
+</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
 </main>
 
 
 <script>
 const I18N = {
-  pl: {countdownTitle:"Do wydarzenia pozostało",days:"Dni",hours:"Godzin",minutes:"Minut",seconds:"Sekund",
+  pl: {adminToggle:"🔒 Panel administratora",countdownTitle:"Do wydarzenia pozostało",days:"Dni",hours:"Godzin",minutes:"Minut",seconds:"Sekund",
     subtitle:"Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026",
-    counterTitle:"Liczba zapisanych na dni gry", teamPoland:"Polska", teamCzechy:"Czechy", saturday:"Sobota", sunday:"Niedziela", reserve:"Rezerwa",
+    counterTitle:"Ilość zapisanych osób", teamPoland:"Polska", teamCzechy:"Czechy", saturday:"Sobota", sunday:"Niedziela", reserve:"Rezerwa",
     sheetInfo:"Dane są pobierane z Google Sheets.", refresh:"Odśwież dane", preview:"Podgląd zapisanych osób", visibleForAll:"Widoczny dla każdego.",
     nick:"Nick", team:"Drużyna", package:"Pakiet", status:"Status", docs:"Dokumenty", openRules:"Otwórz regulamin PDF", downloadMinor:"Pobierz oświadczenie dla nieletniego",
     signupTitle:"Zapisz się na wydarzenie", eventChoice:"Wybór wydarzenia", nickName:"Nick / Imię", phoneFb:"Telefon lub Konto FB", optional:"opcjonalnie",requiredContact:"wymagane",groupSignup:"Zapis grupowy",groupCount:"Liczba osób do zapisu",groupContactInfo:"Kontakt podajesz tylko raz — dla osoby zapisującej grupę.",personLabel:"Osoba",personPlaceholder:"Nick / imię osoby",groupSent:"Zgłoszenia grupowe wysłane do arkusza.",groupReserveInfo:"Część osób może trafić na listę rezerwową, jeśli limit miejsc został osiągnięty.",
@@ -82,9 +314,9 @@ const I18N = {
     acceptRules:"Akceptuję regulamin", notes:"Uwagi", notesPlaceholder:"np. replika, frakcja, dodatkowe informacje", submit:"Wyślij zgłoszenie", cancelEdit:"Anuluj edycję",
     adminPanel:"Panel admina", adminPassword:"Hasło admina", enterPanel:"Wejdź do panelu", logout:"Wyloguj", exportCsv:"Eksport CSV", entriesList:"Lista zgłoszeń", date:"Data", contactFb:"Kontakt/FB", age:"Wiek", actions:"Akcje"
   },
-  cs: {countdownTitle:"Do akce zbývá",days:"Dní",hours:"Hodin",minutes:"Minut",seconds:"Sekund",
+  cs: {adminToggle:"🔒 Panel administrátora",countdownTitle:"Do akce zbývá",days:"Dní",hours:"Hodin",minutes:"Minut",seconds:"Sekund",
     subtitle:"Registrace na akci: Polsko vs Česko 15/16.08.2026",
-    counterTitle:"Počet přihlášených podle dnů", teamPoland:"Polsko", teamCzechy:"Česko", saturday:"Sobota", sunday:"Neděle", reserve:"Náhradníci",
+    counterTitle:"Počet přihlášených osob", teamPoland:"Polsko", teamCzechy:"Česko", saturday:"Sobota", sunday:"Neděle", reserve:"Náhradníci",
     sheetInfo:"Data se načítají z Google Sheets.", refresh:"Obnovit data", preview:"Náhled přihlášených osob", visibleForAll:"Viditelné pro všechny.",
     nick:"Přezdívka", team:"Tým", package:"Balíček", status:"Status", docs:"Dokumenty", openRules:"Otevřít pravidla PDF", downloadMinor:"Stáhnout prohlášení pro nezletilé",
     signupTitle:"Přihlásit se na akci", eventChoice:"Výběr akce", nickName:"Přezdívka / Jméno", phoneFb:"Telefon nebo Facebook účet", optional:"volitelné",requiredContact:"povinné",groupSignup:"Skupinová registrace",groupCount:"Počet osob k registraci",groupContactInfo:"Kontakt zadáváš pouze jednou — pro osobu registrující skupinu.",personLabel:"Osoba",personPlaceholder:"Přezdívka / jméno osoby",groupSent:"Skupinové přihlášky byly odeslány do tabulky.",groupReserveInfo:"Část osob může být zařazena na seznam náhradníků, pokud byl dosažen limit míst.",
@@ -95,9 +327,9 @@ const I18N = {
     acceptRules:"Souhlasím s pravidly", notes:"Poznámky", notesPlaceholder:"např. replika, frakce, další informace", submit:"Odeslat přihlášku", cancelEdit:"Zrušit úpravy",
     adminPanel:"Admin panel", adminPassword:"Heslo admina", enterPanel:"Vstoupit do panelu", logout:"Odhlásit", exportCsv:"Export CSV", entriesList:"Seznam přihlášek", date:"Datum", contactFb:"Kontakt/FB", age:"Věk", actions:"Akce"
   },
-  uk: {countdownTitle:"До події залишилося",days:"Днів",hours:"Годин",minutes:"Хвилин",seconds:"Секунд",
+  uk: {adminToggle:"🔒 Панель адміністратора",countdownTitle:"До події залишилося",days:"Днів",hours:"Годин",minutes:"Хвилин",seconds:"Секунд",
     subtitle:"Реєстрація на подію: Польща vs Чехія 15/16.08.2026",
-    counterTitle:"Кількість зареєстрованих за днями", teamPoland:"Польща", teamCzechy:"Чехія", saturday:"Субота", sunday:"Неділя", reserve:"Резерв",
+    counterTitle:"Кількість зареєстрованих осіб", teamPoland:"Польща", teamCzechy:"Чехія", saturday:"Субота", sunday:"Неділя", reserve:"Резерв",
     sheetInfo:"Дані завантажуються з Google Sheets.", refresh:"Оновити дані", preview:"Перегляд зареєстрованих осіб", visibleForAll:"Видно для всіх.",
     nick:"Нік", team:"Команда", package:"Пакет", status:"Статус", docs:"Документи", openRules:"Відкрити регламент PDF", downloadMinor:"Завантажити заяву для неповнолітнього",
     signupTitle:"Зареєструватися на подію", eventChoice:"Вибір події", nickName:"Нік / Ім’я", phoneFb:"Телефон або акаунт FB", optional:"необов’язково",requiredContact:"обов’язково",groupSignup:"Групова реєстрація",groupCount:"Кількість осіб для реєстрації",groupContactInfo:"Контакт вказується лише один раз — для особи, яка реєструє групу.",personLabel:"Особа",personPlaceholder:"Нік / ім’я особи",groupSent:"Групові заявки надіслано до таблиці.",groupReserveInfo:"Деякі особи можуть потрапити в резервний список, якщо ліміт місць досягнуто.",
@@ -108,9 +340,9 @@ const I18N = {
     acceptRules:"Приймаю регламент", notes:"Примітки", notesPlaceholder:"напр. репліка, фракція, додаткова інформація", submit:"Надіслати заявку", cancelEdit:"Скасувати редагування",
     adminPanel:"Панель адміністратора", adminPassword:"Пароль адміністратора", enterPanel:"Увійти в панель", logout:"Вийти", exportCsv:"Експорт CSV", entriesList:"Список заявок", date:"Дата", contactFb:"Контакт/FB", age:"Вік", actions:"Дії"
   },
-  en: {countdownTitle:"Time until event",days:"Days",hours:"Hours",minutes:"Minutes",seconds:"Seconds",
+  en: {adminToggle:"🔒 Admin panel",countdownTitle:"Time until event",days:"Days",hours:"Hours",minutes:"Minutes",seconds:"Seconds",
     subtitle:"Registration for event: Poland vs Czechia 15/16.08.2026",
-    counterTitle:"Players registered by game day", teamPoland:"Poland", teamCzechy:"Czechia", saturday:"Saturday", sunday:"Sunday", reserve:"Reserve list",
+    counterTitle:"Registered players counter", teamPoland:"Poland", teamCzechy:"Czechia", saturday:"Saturday", sunday:"Sunday", reserve:"Reserve list",
     sheetInfo:"Data is loaded from Google Sheets.", refresh:"Refresh data", preview:"Registered players preview", visibleForAll:"Visible to everyone.",
     nick:"Nickname", team:"Team", package:"Package", status:"Status", docs:"Documents", openRules:"Open rules PDF", downloadMinor:"Download minor consent form",
     signupTitle:"Sign up for the event", eventChoice:"Event selection", nickName:"Nickname / Name", phoneFb:"Phone or Facebook account", optional:"optional",requiredContact:"required",groupSignup:"Group signup",groupCount:"Number of people to register",groupContactInfo:"You enter contact details only once — for the person registering the group.",personLabel:"Person",personPlaceholder:"Nickname / name of person",groupSent:"Group registrations were sent to the sheet.",groupReserveInfo:"Some people may go to the reserve list if the place limit has been reached.",
@@ -159,16 +391,41 @@ async function loadData(){const info=document.getElementById("loadInfo");try{inf
 function confirmed(team){return entries.filter(e=>e.druzyna===team&&(e.status||"POTWIERDZONY")==="POTWIERDZONY")}
 function reserve(team){return entries.filter(e=>e.druzyna===team&&e.status==="REZERWA")}
 function counts(){return{Polska:confirmed("Polska").length,Czechy:confirmed("Czechy").length,PolskaRezerwa:reserve("Polska").length,CzechyRezerwa:reserve("Czechy").length,PolskaSobota:confirmed("Polska").filter(e=>e.sobota==="TAK").length,PolskaNiedziela:confirmed("Polska").filter(e=>e.niedziela==="TAK").length,CzechySobota:confirmed("Czechy").filter(e=>e.sobota==="TAK").length,CzechyNiedziela:confirmed("Czechy").filter(e=>e.niedziela==="TAK").length}}
-function updateCounters(){const c=counts();polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
-function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr><td colspan="6">Brak zapisanych osób.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td>`;publicRows.appendChild(tr)})}
-function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr><td colspan="11">Brak zgłoszeń.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td><td>${esc(e.nick)}</td><td>${esc(e.telefon||"")}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.sobota)}</td><td>${esc(e.niedziela)}</td><td>${esc(st)}</td><td>${esc(e.wiek)}</td><td>${esc(e.uwagi||"")}</td><td><button class="smallBtn secondary" onclick="editEntry('${e.id}')">Edytuj</button><button class="smallBtn danger" onclick="deleteEntry('${e.id}')">Usuń</button></td>`;adminRows.appendChild(tr)})}
+function updateCounters(){const c=counts();countPolska.textContent=c.Polska+" / "+LIMIT;countCzechy.textContent=c.Czechy+" / "+LIMIT;polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const pf=c.Polska>=LIMIT,cf=c.Czechy>=LIMIT;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
+function renderPublic(){publicRows.innerHTML="";if(!entries.length){publicRows.innerHTML='<tr>
+<td colspan="6">Brak zapisanych osób.</td>
+</tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.nick)}</td>
+<td>${esc(e.druzyna)}</td>
+<td>${esc(e.pakiet)}</td>
+<td>${esc(e.sobota)}</td>
+<td>${esc(e.niedziela)}</td>
+<td>${esc(st)}</td>`;publicRows.appendChild(tr)})}
+function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr>
+<td colspan="11">Brak zgłoszeń.</td>
+</tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td>
+<td>${esc(e.nick)}</td>
+<td>${esc(e.telefon||"")}</td>
+<td>${esc(e.druzyna)}</td>
+<td>${esc(e.pakiet)}</td>
+<td>${esc(e.sobota)}</td>
+<td>${esc(e.niedziela)}</td>
+<td>${esc(st)}</td>
+<td>${esc(e.wiek)}</td>
+<td>${esc(e.uwagi||"")}</td>
+<td>
+<button class="smallBtn secondary" onclick="editEntry('${e.id}')">Edytuj</button>
+<button class="smallBtn danger" onclick="deleteEntry('${e.id}')">Usuń</button>
+</td>`;adminRows.appendChild(tr)})}
 showRulesBtn.onclick=()=>{rulesBox.classList.remove("hidden");acceptRules.disabled=false;acceptRulesLabel.classList.remove("disabled")};
 document.querySelectorAll('input[name="wiek"]').forEach(el=>el.onchange=()=>{minorBox.classList.toggle("hidden",!el.value.includes("Nie mam 18 lat"))});
 cancelEditBtn.onclick=resetFormMode;
 
 function currentLangDict(){const lang=localStorage.getItem("asg_lang")||"pl";return I18N[lang]||I18N.pl}
 function toggleGroupSignup(){const enabled=document.getElementById("groupSignup").checked;document.getElementById("groupOptions").classList.toggle("hidden",!enabled);document.getElementById("nick").required=!enabled;document.getElementById("nick").closest("div").classList.toggle("hidden",enabled);renderGroupFields()}
-function renderGroupFields(){const box=document.getElementById("groupPeople");if(!box)return;const enabled=document.getElementById("groupSignup").checked;if(!enabled){box.innerHTML="";return}const dict=currentLangDict();const count=Number(document.getElementById("groupCount").value||2);const existing={};document.querySelectorAll(".groupPersonInput").forEach(inp=>existing[inp.dataset.index]=inp.value);let out="";for(let i=1;i<=count;i++){out+=`<div class="personBox"><label>${dict.personLabel||"Osoba"} ${i}</label><input class="groupPersonInput" data-index="${i}" required placeholder="${dict.personPlaceholder||"Nick / imię osoby"}" value="${esc(existing[i]||"")}"></div>`}box.innerHTML=out}
+function renderGroupFields(){const box=document.getElementById("groupPeople");if(!box)return;const enabled=document.getElementById("groupSignup").checked;if(!enabled){box.innerHTML="";return}const dict=currentLangDict();const count=Number(document.getElementById("groupCount").value||2);const existing={};document.querySelectorAll(".groupPersonInput").forEach(inp=>existing[inp.dataset.index]=inp.value);let out="";for(let i=1;i<=count;i++){out+=`<div class="personBox">
+<label>${dict.personLabel||"Osoba"} ${i}</label>
+<input class="groupPersonInput" data-index="${i}" required placeholder="${dict.personPlaceholder||"Nick / imię osoby"}" value="${esc(existing[i]||"")}">
+</div>`}box.innerHTML=out}
 function getSignupNames(){const isGroup=document.getElementById("groupSignup").checked;if(!isGroup)return[document.getElementById("nick").value.trim()];return Array.from(document.querySelectorAll(".groupPersonInput")).map(i=>i.value.trim()).filter(Boolean)}
 
 form.onsubmit=async e=>{e.preventDefault();const d=new FormData(form),id=editId.value,druzyna=d.get("druzyna"),pakiet=d.get("pakiet"),names=getSignupNames();if(!acceptRules.checked){showStatus("Najpierw wyświetl i zaakceptuj regulamin.","err");return}if(!d.get("telefon")||!String(d.get("telefon")).trim()){showStatus("Telefon lub Konto FB jest wymagane.","err");return}if(!names.length){showStatus("Uzupełnij osoby do zapisu.","err");return}try{submitBtn.disabled=true;if(id){const status=entries.filter(x=>x.druzyna===druzyna&&(x.status||"POTWIERDZONY")==="POTWIERDZONY"&&x.id!==id).length>=LIMIT?"REZERWA":"POTWIERDZONY";const entry={id,wydarzenie:d.get("wydarzenie"),nick:names[0],telefon:d.get("telefon"),druzyna,pakiet,sobota:pakiet==="Sobota"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",niedziela:pakiet==="Niedziela"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",status,wiek:d.get("wiek"),regulamin:acceptRules.checked?"TAK":"NIE",uwagi:d.get("uwagi")};await api("update",entry);showStatus("Zgłoszenie zaktualizowane.","ok")}else{let confirmedSoFar=entries.filter(x=>x.druzyna===druzyna&&(x.status||"POTWIERDZONY")==="POTWIERDZONY").length;let reserveUsed=false;for(const personName of names){const status=confirmedSoFar>=LIMIT?"REZERWA":"POTWIERDZONY";if(status==="REZERWA")reserveUsed=true;else confirmedSoFar++;const entry={id:"",wydarzenie:d.get("wydarzenie"),nick:personName,telefon:d.get("telefon"),druzyna,pakiet,sobota:pakiet==="Sobota"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",niedziela:pakiet==="Niedziela"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",status,wiek:d.get("wiek"),regulamin:acceptRules.checked?"TAK":"NIE",uwagi:d.get("uwagi")};await api("add",entry)}const dict=currentLangDict();showStatus(names.length>1?(dict.groupSent+(reserveUsed?" "+dict.groupReserveInfo:"")):(reserveUsed?"Zgłoszenie wysłane na listę rezerwową.":"Zgłoszenie wysłane do arkusza."),reserveUsed?"warn":"ok")}resetFormMode();await loadData()}catch(err){showStatus("Błąd zapisu: "+err.message,"err")}finally{submitBtn.disabled=false}};
