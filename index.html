@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ASG Zielona Chmura - Zapisy</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#101810;color:#f2f2f2}header{background:linear-gradient(135deg,#214d22,#4b7f2b);padding:18px 16px}.headerInner{max-width:1100px;margin:auto;display:grid;grid-template-columns:95px 1fr 95px;gap:15px;align-items:center;text-align:center}.logo{width:90px;height:90px;object-fit:contain;background:transparent}header h1{margin:0;font-size:34px}header p{margin:10px 0 0;font-size:18px}.hero{background:#050805}.hero img{width:100%;display:block;max-width:1600px;margin:auto}main{max-width:1050px;margin:auto;padding:20px}.card{background:#1b261b;border:1px solid #385938;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 4px 14px rgba(0,0,0,.35)}h2,h3{color:#b7f07a}label{display:block;margin:12px 0 6px;font-weight:bold}input,select,textarea,button{width:100%;padding:12px;border-radius:10px;border:1px solid #777;font-size:16px}input,select,textarea{background:#f7f7f7;color:#111}textarea{min-height:80px}button{cursor:pointer;border:none;background:#74b843;color:#081008;font-weight:bold;margin-top:12px}button.secondary{background:#2d3f2d;color:#fff;border:1px solid #74b843}button.danger{background:#6b2020;color:#fff;border:1px solid #d66}button.smallBtn{padding:8px;font-size:13px;margin:2px 0}.hidden{display:none}.radio-box{background:#243124;border:1px solid #496849;border-radius:12px;padding:12px;margin:10px 0;font-weight:normal}.radio-box input{width:auto;margin-right:8px}.group-box{background:#142014;border:1px solid #496849;border-radius:12px;padding:12px;margin:12px 0}.personBox{background:#243124;border:1px solid #496849;border-radius:12px;padding:12px;margin:10px 0}.radio-box.disabled{opacity:.55;color:#aaa}.reserveNote{color:#ffcf6b;font-size:14px;display:none;margin-top:6px}.note{color:#aaa;font-size:14px}.counter-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.counter{background:#101810;border:1px solid #496849;border-radius:12px;padding:16px;text-align:center;font-size:20px}.counter strong{display:block;color:#b7f07a;font-size:28px;margin-top:8px}.daySplit{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dayBox,.reserveBox{background:#182218;border:1px solid #385938;border-radius:10px;padding:8px}.dayBox span,.reserveBox span{display:block;color:#b7f07a;font-weight:bold;font-size:20px;margin-top:3px}.reserveBox{margin-top:10px;background:#332a11;border-color:#caa44a;color:#ffdc7a}.counter.full{border-color:#d6b64c}.counter.full strong{color:#ffdc7a}.reg-box{background:#101810;border:1px solid #496849;border-radius:12px;padding:14px;max-height:280px;overflow-y:auto;margin-top:10px;white-space:pre-wrap;line-height:1.35}.status{margin-top:14px;padding:12px;border-radius:10px;display:none}.ok{background:#244d24;border:1px solid #74b843}.err{background:#5a2222;border:1px solid #d66}.warn{background:#4c421d;border:1px solid #d6b64c}.small{font-size:14px;color:#bbb}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}th,td{border:1px solid #496849;padding:8px;text-align:left;vertical-align:top}th{background:#243124;color:#b7f07a}tr.reserveRow td{background:#302711}.adminBar{display:flex;gap:8px;flex-wrap:wrap}.adminBar button{width:auto;min-width:150px}.publicList{overflow-x:auto}.fileLinks{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fileLinks a{display:block;text-align:center;padding:12px;border-radius:10px;border:1px solid #74b843;background:#2d3f2d;color:#fff;text-decoration:none;font-weight:bold}.langBox{position:absolute;right:16px;top:10px;max-width:170px}.langBox select{padding:8px;font-size:14px;border-radius:8px}.headerWrap{position:relative}details summary{cursor:pointer;color:#b7f07a;font-size:22px;font-weight:bold}@media(max-width:750px){.counter-grid,.row,.fileLinks,.daySplit{grid-template-columns:1fr}.headerInner{grid-template-columns:60px 1fr 60px}.logo{width:58px;height:58px}header h1{font-size:23px}header p{font-size:14px}main{padding:14px}table{font-size:12px}th,td{padding:5px}}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.timeBox{background:#101810;border:1px solid #496849;border-radius:12px;padding:12px;text-align:center}
+.timeBox strong{display:block;color:#b7f07a;font-size:30px}
+
+
+.admin-card details {
+  background: #142014;
+  border: 1px solid #496849;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.admin-card summary {
+  cursor: pointer;
+  color: #b7f07a;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.admin-content {
+  margin-top: 16px;
+}
+
+
+.checkinBox {
+  margin-top: 18px;
+  background: #101810;
+  border: 1px solid #496849;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.checkinRow td {
+  vertical-align: middle;
+}
+
+.checkinCheckbox {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.checkinPresent td {
+  background: #173317;
+}
+
+.checkinTools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+@media(max-width:750px){
+  .checkinTools {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.start-screen{max-width:900px;margin:24px auto}
+.event-menu{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.event-choice{display:block;background:#243124;border:1px solid #74b843;color:#fff;text-decoration:none;border-radius:16px;padding:24px;text-align:center;font-size:22px;font-weight:bold;cursor:pointer}
+.event-choice:hover{background:#2f452f}
+.back-event-btn{max-width:240px;margin-bottom:16px}
+.singleCounter{grid-template-columns:1fr}
+@media(max-width:750px){.event-menu{grid-template-columns:1fr}}
+
+
+.registeredBox{
+  background:#009933 !important;
+  border-color:#74b843 !important;
+  color:#ffffff !important;
+}
+
+.registeredBox span{
+  color:#ffffff !important;
+}
+
+.rentalInfoBox{
+  background:#142014;
+  border:1px solid #496849;
+  border-radius:12px;
+  padding:16px;
+  margin:18px 0;
+}
+
+.rentalInfoBox h3{
+  margin-top:0;
+}
+
+.rentalLinks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.rentalLinks a{
+  display:block;
+  text-align:center;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #74b843;
+  background:#2d3f2d;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+@media(max-width:750px){
+  .rentalLinks{
+    grid-template-columns:1fr;
+  }
+}
+
+
+.event-note{
+  display:block;
+  margin-top:10px;
+  font-size:13px;
+  color:#ffdc7a;
+  font-weight:normal;
+}
+</style>
+</head>
+<body>
+<header class="headerWrap">
+<div class="langBox">
+<select id="langSelect" onchange="setLang(this.value)">
+<option value="pl">Polski</option>
+<option value="cs">Česky</option>
+<option value="uk">Українська</option>
+<option value="en">English</option>
+</select>
+</div>
+<div class="headerInner">
+<img src="./logo.png?v=5" class="logo">
+<div>
+<h1>ASG Zielona Chmura</h1>
+<p id="eventSubtitle" data-i18n="subtitle">System zapisów ASG Zielona Chmura</p>
+</div>
+<img src="./logo.png?v=5" class="logo">
+</div>
+</header>
+<section class="hero" id="heroSection">
+<img src="./Baner.png?v=1" alt="Polska vs Czechy">
+</section>
+<main>
+<section id="startScreen" class="card start-screen">
+  <h2 data-i18n="chooseEvent">Wybierz wydarzenie</h2>
+  <div class="event-menu">
+    <button class="event-choice" onclick="selectEvent('ubojnia')">1. Ubojnia CQB</button>
+    <button class="event-choice" onclick="selectEvent('polskaCzechy')">
+      2. Polska VS Czechy
+      <small class="event-note" data-i18n="polCzeAvailable">Zapisy dostępne od 01.08.2026</small>
+    </button>
+  </div>
+</section>
+<div id="appScreen" class="hidden">
+<button class="secondary back-event-btn" onclick="showStart()" data-i18n="backToEvents">← Wybierz inne wydarzenie</button>
+
+<section class="card" id="countdownSection">
+<h2 data-i18n="countdownTitle">Odliczanie do wydarzenia</h2>
+<div class="countdown">
+<div class="timeBox">
+<strong id="cdDays">0</strong>
+<span data-i18n="days">Dni</span>
+</div>
+<div class="timeBox">
+<strong id="cdHours">0</strong>
+<span data-i18n="hours">Godzin</span>
+</div>
+<div class="timeBox">
+<strong id="cdMinutes">0</strong>
+<span data-i18n="minutes">Minut</span>
+</div>
+<div class="timeBox">
+<strong id="cdSeconds">0</strong>
+<span data-i18n="seconds">Sekund</span>
+</div>
+</div>
+</section>
+
+<section class="card" id="counterSection">
+<h2 data-i18n="counterTitle">Liczba zapisanych graczy</h2>
+<div class="counter-grid">
+<div class="counter" id="boxPolska">
+<span data-i18n="teamPoland">Polska</span>
+
+<div class="daySplit">
+<div class="dayBox">
+<span data-i18n="saturday">Sobota</span>
+<span id="polskaSobota">0</span>
+</div>
+<div class="dayBox">
+<span data-i18n="sunday">Niedziela</span>
+<span id="polskaNiedziela">0</span>
+</div>
+</div>
+<div class="reserveBox">
+<span data-i18n="reserve">Rezerwa</span>
+<span id="polskaRezerwa">0</span>
+</div>
+</div>
+<div class="counter" id="boxCzechy">
+<span data-i18n="teamCzechy">Czechy</span>
+
+<div class="daySplit">
+<div class="dayBox">
+<span data-i18n="saturday">Sobota</span>
+<span id="czechySobota">0</span>
+</div>
+<div class="dayBox">
+<span data-i18n="sunday">Niedziela</span>
+<span id="czechyNiedziela">0</span>
+</div>
+</div>
+<div class="reserveBox">
+<span data-i18n="reserve">Rezerwa</span>
+<span id="czechyRezerwa">0</span>
+</div>
+</div>
+<div class="counter hidden" id="boxUbojnia">
+<span data-i18n="registered">Zapisani</span>
+<div class="reserveBox registeredBox"><span data-i18n="registered">Zapisani</span><span id="ubojniaZapisani">0 / 50</span></div>
+<div class="reserveBox"><span data-i18n="reserve">Rezerwa</span><span id="ubojniaRezerwa">0</span></div>
+</div>
+</div>
+<p class="small" id="loadInfo">
+<span data-i18n="sheetInfo">Dane są pobierane z Google Sheets.</span>
+</p>
+<button class="secondary" onclick="loadData()" data-i18n="refresh">Odśwież dane</button>
+</section>
+
+<section class="card">
+<details>
+<summary data-i18n="preview">Podgląd zapisanych osób</summary>
+<p class="small">
+<span data-i18n="visibleForAll">Widoczny dla każdego.</span>
+</p>
+<div class="publicList">
+<table>
+<thead>
+<tr id="publicTableHead">
+<th data-i18n="nick">Gracz</th>
+<th data-i18n="team">Drużyna</th>
+<th data-i18n="package">Pakiet</th>
+<th data-i18n="age">Wiek</th>
+</tr>
+</thead>
+<tbody id="publicRows">
+</tbody>
+</table>
+</div>
+</details>
+</section>
+
+<section class="card">
+<h2 data-i18n="docs">Dokumenty</h2>
+<div class="fileLinks">
+<a href="regulamin.pdf" target="_blank" data-i18n="openRules">Otwórz regulamin PDF</a>
+<a href="oswiadczenie.pdf" target="_blank" data-i18n="downloadMinor">Pobierz oświadczenie dla nieletniego</a>
+</div>
+</section>
+
+<section class="card">
+<h2 data-i18n="signupTitle">Zapisz się na wydarzenie</h2>
+<form id="signupForm">
+<input type="hidden" id="editId">
+<label data-i18n="eventChoice">Wybór wydarzenia</label>
+<select id="wydarzenie" name="wydarzenie" required>
+<option id="eventOption">Polska vs Czechy 15/16.08.2026</option>
+</select>
+<div class="row">
+<div>
+<label data-i18n="nickName">Nick / Imię</label>
+<input id="nick" name="nick" required placeholder="np. Adrian / Zielony">
+</div>
+<div>
+<label data-i18n="phoneFb">Telefon lub Konto FB</label>
+<input id="telefon" name="telefon" required placeholder="wymagane" data-i18n-placeholder="requiredContact">
+</div>
+</div>
+<div class="group-box">
+<label class="radio-box">
+<input type="checkbox" id="groupSignup" onchange="toggleGroupSignup()"> <span data-i18n="groupSignup">Zapis grupowy</span>
+</label>
+<div id="groupOptions" class="hidden">
+<label for="groupCount" data-i18n="groupCount">Liczba osób do zapisu</label>
+<select id="groupCount" onchange="renderGroupFields()">
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+<div id="groupPeople">
+</div>
+<p class="small" data-i18n="groupContactInfo">Kontakt podajesz tylko raz — dla osoby zapisującej grupę.</p>
+</div>
+</div>
+<div id="teamSection"><h3 data-i18n="team">Drużyna</h3>
+<label class="radio-box" id="labelPolska">
+<input type="radio" name="druzyna" value="Polska" required> Polska<span class="reserveNote" id="polskaReserveNote" data-i18n="reserveNote">Brak miejsc — zapis trafi na listę rezerwową.</span>
+</label>
+<label class="radio-box" id="labelCzechy">
+<input type="radio" name="druzyna" value="Czechy" required> Czechy<span class="reserveNote" id="czechyReserveNote" data-i18n="reserveNote">Brak miejsc — zapis trafi na listę rezerwową.</span>
+</label>
+</div>
+<div id="packageSection"><h3 data-i18n="gamePackage">Pakiet gry</h3>
+<label class="radio-box" id="packageWeekendLabel">
+<input id="packageWeekend" type="radio" name="pakiet" value="Sobota-Niedziela" required> <span data-i18n="satSunPackage">Sobota + Niedziela — 20 zł</span>
+</label>
+<label class="radio-box disabled" id="packageSaturdayLabel">
+<input id="packageSaturday" type="radio" name="pakiet" value="Sobota" disabled> <span data-i18n="satPackage">Sobota — 10 zł</span> <span class="note">
+<span data-i18n="availableFrom">Dostępne od 07.08.2026</span>
+</span>
+</label>
+<label class="radio-box disabled" id="packageSundayLabel">
+<input id="packageSunday" type="radio" name="pakiet" value="Niedziela" disabled> <span data-i18n="sunPackage">Niedziela — 10 zł</span> <span class="note">
+<span data-i18n="availableFrom">Dostępne od 07.08.2026</span>
+</span>
+</label>
+</div>
+
+<h3 data-i18n="ageTitle">Wiek uczestnika</h3>
+<label class="radio-box">
+<input type="radio" name="wiek" value="Mam 18 lat" required> <span data-i18n="adult">Mam 18 lat</span>
+</label>
+<label class="radio-box">
+<input type="radio" name="wiek" value="Nie mam 18 lat - pobieram formularz" required> <span data-i18n="minorDownload">Nie mam 18 lat — pobierz formularz</span>
+</label>
+<label class="radio-box">
+<input type="radio" name="wiek" value="Nie mam 18 lat - będę z opiekunem" required> <span data-i18n="minorGuardian">Nie mam 18 lat — będę z opiekunem</span>
+</label>
+<div id="minorBox" class="hidden card" style="background:#142014;margin-top:12px">
+<strong data-i18n="minorFormTitle">Formularz dla osoby niepełnoletniej</strong>
+<p>
+<span data-i18n="minorFormText">Osoba niepełnoletnia musi mieć zgodę rodzica/opiekuna.</span>
+</p>
+<a href="oswiadczenie.pdf" target="_blank" style="color:#b7f07a" data-i18n="downloadMinor">Pobierz oświadczenie dla nieletniego</a>
+</div>
+
+<div class="rentalInfoBox">
+  <h3 data-i18n="rentalTitle">Chcesz wypożyczyć sprzęt?</h3>
+  <p data-i18n="rentalText">Skontaktuj się poprzez Wypożyczalnię:</p>
+  <div class="rentalLinks">
+    <a href="https://www.facebook.com/profile.php?id=61563476911935" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://o845d4.webwave.dev/" target="_blank" rel="noopener">WWW</a>
+  </div>
+</div>
+
+<h3 data-i18n="rules">Regulamin</h3>
+<button type="button" class="secondary" id="showRulesBtn" data-i18n="showRules">Wyświetl regulamin</button>
+<div id="rulesBox" class="reg-box hidden">
+<span data-i18n="rulesText">Regulamin dostępny jest w pliku PDF powyżej. Uczestnik potwierdza znajomość zasad bezpieczeństwa oraz udział na własną odpowiedzialność.</span>
+</div>
+<label class="radio-box disabled" id="acceptRulesLabel">
+<input type="checkbox" id="acceptRules" disabled required> <span data-i18n="acceptRules">Akceptuję regulamin</span>
+</label>
+<label data-i18n="notes">Uwagi</label>
+<textarea id="uwagi" name="uwagi" placeholder="np. replika, frakcja, dodatkowe informacje" data-i18n-placeholder="notesPlaceholder">
+</textarea>
+<button type="submit" id="submitBtn" data-i18n="submit">Wyślij zgłoszenie</button>
+<button type="button" class="secondary hidden" id="cancelEditBtn" data-i18n="cancelEdit">Anuluj edycję</button>
+<div id="status" class="status">
+</div>
+</form>
+</section>
+
+<section class="card admin-card">
+  <details id="adminDetails">
+    <summary data-i18n="adminToggle">🔒 Panel administratora</summary>
+
+    <div class="admin-content">
+      <div id="loginBox">
+        <label data-i18n="adminPassword">Hasło admina</label>
+        <input id="adminPass" type="password">
+        <button onclick="loginAdmin()" data-i18n="enterPanel">Wejdź do panelu</button>
+      </div>
+
+      <div id="adminPanel" class="hidden">
+        <div class="adminBar">
+          <button class="secondary" onclick="logoutAdmin()" data-i18n="logout">Wyloguj</button>
+          <button class="secondary" onclick="exportCSV()" data-i18n="exportCsv">Eksport CSV</button>
+        </div>
+
+        <div class="checkinBox">
+          <h3 data-i18n="checkinTitle">Check-in wydarzenia</h3>
+          <p class="small" data-i18n="checkinInfo">Kopia listy zapisanych osób. Obecność zapisuje się lokalnie w tej przeglądarce.</p>
+
+          <div class="checkinTools">
+            <input id="checkinSearch" placeholder="Szukaj nicku..." data-i18n-placeholder="searchNick" oninput="renderCheckin()">
+            <select id="checkinTeamFilter" onchange="renderCheckin()">
+              <option value="ALL" data-i18n="allTeams">Wszystkie drużyny</option>
+              <option value="Polska">Polska</option>
+              <option value="Czechy">Czechy</option>
+            </select>
+          </div>
+
+          <p class="small"><span data-i18n="presentCount">Obecni</span>: <strong id="checkinPresentCount">0</strong></p>
+
+          <div style="overflow-x:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="nick">Nick</th>
+                  <th data-i18n="team">Drużyna</th>
+                  <th data-i18n="presence">Obecność</th>
+                </tr>
+              </thead>
+              <tbody id="checkinRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3 data-i18n="entriesList">Lista zgłoszeń</h3>
+
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="date">Data</th>
+                <th data-i18n="nick">Nick</th>
+                <th data-i18n="contactFb">Kontakt/FB</th>
+                <th data-i18n="team">Drużyna</th>
+                <th data-i18n="package">Pakiet</th>
+                <th data-i18n="saturday">Sobota</th>
+                <th data-i18n="sunday">Niedziela</th>
+                <th data-i18n="status">Status</th>
+                <th data-i18n="age">Wiek</th>
+                <th data-i18n="notes">Uwagi</th>
+                <th data-i18n="actions">Akcje</th>
+              </tr>
+            </thead>
+            <tbody id="adminRows">
+</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+</div>
+</main>
+
+
+<script>
+const I18N = {
+  pl: {polCzeAvailable:"Zapisy dostępne od 01.08.2026",rentalTitle:"Chcesz wypożyczyć sprzęt?",rentalText:"Skontaktuj się poprzez Wypożyczalnię:",ageConfirm:"Potwierdzenie wieku",rentGear:"Chcę wypożyczyć sprzęt (opcjonalne)",ubojniaPackage:"Tylko Niedziela — 10 zł",chooseEvent:"Wybierz wydarzenie",backToEvents:"← Wybierz inne wydarzenie",registered:"Zapisani",checkinTitle:"Check-in wydarzenia",checkinInfo:"Kopia listy zapisanych osób. Obecność zapisuje się lokalnie w tej przeglądarce.",searchNick:"Szukaj nicku...",allTeams:"Wszystkie drużyny",presence:"Obecność",presentCount:"Obecni",adminToggle:"🔒 Panel administratora",countdownTitle:"Do wydarzenia pozostało",days:"Dni",hours:"Godzin",minutes:"Minut",seconds:"Sekund",
+    subtitle:"Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026",
+    counterTitle:"Liczba zapisanych graczy", teamPoland:"Polska", teamCzechy:"Czechy", saturday:"Sobota", sunday:"Niedziela", reserve:"Rezerwa",
+    sheetInfo:"Dane są pobierane z Google Sheets.", refresh:"Odśwież dane", preview:"Podgląd zapisanych osób", visibleForAll:"Widoczny dla każdego.",
+    nick:"Nick", team:"Drużyna", package:"Pakiet", status:"Status", docs:"Dokumenty", openRules:"Otwórz regulamin PDF", downloadMinor:"Pobierz oświadczenie dla nieletniego",
+    signupTitle:"Zapisz się na wydarzenie", eventChoice:"Wybór wydarzenia", nickName:"Nick / Imię", phoneFb:"Telefon lub Konto FB", optional:"opcjonalnie",requiredContact:"wymagane",groupSignup:"Zapis grupowy",groupCount:"Liczba osób do zapisu",groupContactInfo:"Kontakt podajesz tylko raz — dla osoby zapisującej grupę.",personLabel:"Osoba",personPlaceholder:"Nick / imię osoby",groupSent:"Zgłoszenia grupowe wysłane do arkusza.",groupReserveInfo:"Część osób może trafić na listę rezerwową, jeśli limit miejsc został osiągnięty.",
+    reserveNote:"Brak miejsc — zapis trafi na listę rezerwową.", gamePackage:"Pakiet gry", satSunPackage:"Sobota + Niedziela — 20 zł", satPackage:"Sobota — 10 zł", sunPackage:"Niedziela — 10 zł", availableFrom:"Dostępne od 07.08.2026",
+    ageTitle:"Wiek uczestnika", adult:"Mam 18 lat", minorDownload:"Nie mam 18 lat — pobierz formularz", minorGuardian:"Nie mam 18 lat — będę z opiekunem",
+    minorFormTitle:"Formularz dla osoby niepełnoletniej", minorFormText:"Osoba niepełnoletnia musi mieć zgodę rodzica/opiekuna.",
+    rules:"Regulamin", showRules:"Wyświetl regulamin", rulesText:"Regulamin dostępny jest w pliku PDF powyżej. Uczestnik potwierdza znajomość zasad bezpieczeństwa oraz udział na własną odpowiedzialność.",
+    acceptRules:"Akceptuję regulamin", notes:"Uwagi", notesPlaceholder:"np. replika, frakcja, dodatkowe informacje", submit:"Wyślij zgłoszenie", cancelEdit:"Anuluj edycję",
+    adminPanel:"Panel admina", adminPassword:"Hasło admina", enterPanel:"Wejdź do panelu", logout:"Wyloguj", exportCsv:"Eksport CSV", entriesList:"Lista zgłoszeń", date:"Data", contactFb:"Kontakt/FB", age:"Wiek", actions:"Akcje"
+  },
+  cs: {polCzeAvailable:"Registrace dostupná od 01.08.2026",rentalTitle:"Chceš si půjčit vybavení?",rentalText:"Kontaktuj půjčovnu:",ageConfirm:"Potvrzení věku",rentGear:"Chci si půjčit vybavení (volitelné)",ubojniaPackage:"Pouze neděle — 10 zł",chooseEvent:"Vyber akci",backToEvents:"← Vybrat jinou akci",registered:"Přihlášení",checkinTitle:"Check-in akce",checkinInfo:"Kopie seznamu přihlášených osob. Přítomnost se ukládá lokálně v tomto prohlížeči.",searchNick:"Hledat přezdívku...",allTeams:"Všechny týmy",presence:"Přítomnost",presentCount:"Přítomní",adminToggle:"🔒 Panel administrátora",countdownTitle:"Do akce zbývá",days:"Dní",hours:"Hodin",minutes:"Minut",seconds:"Sekund",
+    subtitle:"Registrace na akci: Polsko vs Česko 15/16.08.2026",
+    counterTitle:"Počet přihlášených hráčů", teamPoland:"Polsko", teamCzechy:"Česko", saturday:"Sobota", sunday:"Neděle", reserve:"Náhradníci",
+    sheetInfo:"Data se načítají z Google Sheets.", refresh:"Obnovit data", preview:"Náhled přihlášených osob", visibleForAll:"Viditelné pro všechny.",
+    nick:"Přezdívka", team:"Tým", package:"Balíček", status:"Status", docs:"Dokumenty", openRules:"Otevřít pravidla PDF", downloadMinor:"Stáhnout prohlášení pro nezletilé",
+    signupTitle:"Přihlásit se na akci", eventChoice:"Výběr akce", nickName:"Přezdívka / Jméno", phoneFb:"Telefon nebo Facebook účet", optional:"volitelné",requiredContact:"povinné",groupSignup:"Skupinová registrace",groupCount:"Počet osob k registraci",groupContactInfo:"Kontakt zadáváš pouze jednou — pro osobu registrující skupinu.",personLabel:"Osoba",personPlaceholder:"Přezdívka / jméno osoby",groupSent:"Skupinové přihlášky byly odeslány do tabulky.",groupReserveInfo:"Část osob může být zařazena na seznam náhradníků, pokud byl dosažen limit míst.",
+    reserveNote:"Místa jsou plná — registrace půjde na seznam náhradníků.", gamePackage:"Herní balíček", satSunPackage:"Sobota + Neděle — 20 zł", satPackage:"Sobota — 10 zł", sunPackage:"Neděle — 10 zł", availableFrom:"Dostupné od 07.08.2026",
+    ageTitle:"Věk účastníka", adult:"Je mi 18 let", minorDownload:"Není mi 18 let — stáhnout formulář", minorGuardian:"Není mi 18 let — budu s opatrovníkem",
+    minorFormTitle:"Formulář pro nezletilou osobu", minorFormText:"Nezletilá osoba musí mít souhlas rodiče/opatrovníka.",
+    rules:"Pravidla", showRules:"Zobrazit pravidla", rulesText:"Pravidla jsou dostupná v PDF souboru výše. Účastník potvrzuje znalost bezpečnostních pravidel a účast na vlastní odpovědnost.",
+    acceptRules:"Souhlasím s pravidly", notes:"Poznámky", notesPlaceholder:"např. replika, frakce, další informace", submit:"Odeslat přihlášku", cancelEdit:"Zrušit úpravy",
+    adminPanel:"Admin panel", adminPassword:"Heslo admina", enterPanel:"Vstoupit do panelu", logout:"Odhlásit", exportCsv:"Export CSV", entriesList:"Seznam přihlášek", date:"Datum", contactFb:"Kontakt/FB", age:"Věk", actions:"Akce"
+  },
+  uk: {polCzeAvailable:"Реєстрація доступна з 01.08.2026",rentalTitle:"Хочеш орендувати спорядження?",rentalText:"Зв’яжись з пунктом прокату:",ageConfirm:"Підтвердження віку",rentGear:"Хочу орендувати спорядження (необов’язково)",ubojniaPackage:"Тільки неділя — 10 zł",chooseEvent:"Виберіть подію",backToEvents:"← Вибрати іншу подію",registered:"Зареєстровані",checkinTitle:"Check-in події",checkinInfo:"Копія списку зареєстрованих осіб. Присутність зберігається локально в цьому браузері.",searchNick:"Пошук ніку...",allTeams:"Усі команди",presence:"Присутність",presentCount:"Присутні",adminToggle:"🔒 Панель адміністратора",countdownTitle:"До події залишилося",days:"Днів",hours:"Годин",minutes:"Хвилин",seconds:"Секунд",
+    subtitle:"Реєстрація на подію: Польща vs Чехія 15/16.08.2026",
+    counterTitle:"Кількість зареєстрованих гравців", teamPoland:"Польща", teamCzechy:"Чехія", saturday:"Субота", sunday:"Неділя", reserve:"Резерв",
+    sheetInfo:"Дані завантажуються з Google Sheets.", refresh:"Оновити дані", preview:"Перегляд зареєстрованих осіб", visibleForAll:"Видно для всіх.",
+    nick:"Нік", team:"Команда", package:"Пакет", status:"Статус", docs:"Документи", openRules:"Відкрити регламент PDF", downloadMinor:"Завантажити заяву для неповнолітнього",
+    signupTitle:"Зареєструватися на подію", eventChoice:"Вибір події", nickName:"Нік / Ім’я", phoneFb:"Телефон або акаунт FB", optional:"необов’язково",requiredContact:"обов’язково",groupSignup:"Групова реєстрація",groupCount:"Кількість осіб для реєстрації",groupContactInfo:"Контакт вказується лише один раз — для особи, яка реєструє групу.",personLabel:"Особа",personPlaceholder:"Нік / ім’я особи",groupSent:"Групові заявки надіслано до таблиці.",groupReserveInfo:"Деякі особи можуть потрапити в резервний список, якщо ліміт місць досягнуто.",
+    reserveNote:"Місць немає — заявка потрапить у резервний список.", gamePackage:"Ігровий пакет", satSunPackage:"Субота + Неділя — 20 zł", satPackage:"Субота — 10 zł", sunPackage:"Неділя — 10 zł", availableFrom:"Доступно з 07.08.2026",
+    ageTitle:"Вік учасника", adult:"Мені є 18 років", minorDownload:"Мені немає 18 років — завантажити форму", minorGuardian:"Мені немає 18 років — буду з опікуном",
+    minorFormTitle:"Форма для неповнолітньої особи", minorFormText:"Неповнолітня особа повинна мати згоду батьків/опікуна.",
+    rules:"Регламент", showRules:"Показати регламент", rulesText:"Регламент доступний у PDF-файлі вище. Учасник підтверджує знання правил безпеки та участь на власну відповідальність.",
+    acceptRules:"Приймаю регламент", notes:"Примітки", notesPlaceholder:"напр. репліка, фракція, додаткова інформація", submit:"Надіслати заявку", cancelEdit:"Скасувати редагування",
+    adminPanel:"Панель адміністратора", adminPassword:"Пароль адміністратора", enterPanel:"Увійти в панель", logout:"Вийти", exportCsv:"Експорт CSV", entriesList:"Список заявок", date:"Дата", contactFb:"Контакт/FB", age:"Вік", actions:"Дії"
+  },
+  en: {polCzeAvailable:"Registration available from 01.08.2026",rentalTitle:"Want to rent equipment?",rentalText:"Contact the rental service:",ageConfirm:"Age confirmation",rentGear:"I want to rent equipment (optional)",ubojniaPackage:"Sunday only — 10 zł",chooseEvent:"Choose event",backToEvents:"← Choose another event",registered:"Registered",checkinTitle:"Event check-in",checkinInfo:"Copy of the registered players list. Presence is saved locally in this browser.",searchNick:"Search nickname...",allTeams:"All teams",presence:"Presence",presentCount:"Present",adminToggle:"🔒 Admin panel",countdownTitle:"Time until event",days:"Days",hours:"Hours",minutes:"Minutes",seconds:"Seconds",
+    subtitle:"Registration for event: Poland vs Czechia 15/16.08.2026",
+    counterTitle:"Registered players", teamPoland:"Poland", teamCzechy:"Czechia", saturday:"Saturday", sunday:"Sunday", reserve:"Reserve list",
+    sheetInfo:"Data is loaded from Google Sheets.", refresh:"Refresh data", preview:"Registered players preview", visibleForAll:"Visible to everyone.",
+    nick:"Nickname", team:"Team", package:"Package", status:"Status", docs:"Documents", openRules:"Open rules PDF", downloadMinor:"Download minor consent form",
+    signupTitle:"Sign up for the event", eventChoice:"Event selection", nickName:"Nickname / Name", phoneFb:"Phone or Facebook account", optional:"optional",requiredContact:"required",groupSignup:"Group signup",groupCount:"Number of people to register",groupContactInfo:"You enter contact details only once — for the person registering the group.",personLabel:"Person",personPlaceholder:"Nickname / name of person",groupSent:"Group registrations were sent to the sheet.",groupReserveInfo:"Some people may go to the reserve list if the place limit has been reached.",
+    reserveNote:"No places left — your signup will go to the reserve list.", gamePackage:"Game package", satSunPackage:"Saturday + Sunday — 20 zł", satPackage:"Saturday — 10 zł", sunPackage:"Sunday — 10 zł", availableFrom:"Available from 07.08.2026",
+    ageTitle:"Participant age", adult:"I am 18 or older", minorDownload:"I am under 18 — download form", minorGuardian:"I am under 18 — I will be with a guardian",
+    minorFormTitle:"Minor participant form", minorFormText:"A minor must have consent from a parent/guardian.",
+    rules:"Rules", showRules:"Show rules", rulesText:"The rules are available in the PDF file above. The participant confirms knowledge of safety rules and participation at their own risk.",
+    acceptRules:"I accept the rules", notes:"Notes", notesPlaceholder:"e.g. replica, faction, additional information", submit:"Submit registration", cancelEdit:"Cancel edit",
+    adminPanel:"Admin panel", adminPassword:"Admin password", enterPanel:"Enter panel", logout:"Log out", exportCsv:"Export CSV", entriesList:"Registration list", date:"Date", contactFb:"Contact/FB", age:"Age", actions:"Actions"
+  }
+};
+
+function setLang(lang){
+  localStorage.setItem("asg_lang", lang);
+  const dict = I18N[lang] || I18N.pl;
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (dict[key]) el.textContent = dict[key];
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (dict[key]) el.placeholder = dict[key];
+  });
+  if (typeof renderGroupFields === "function") renderGroupFields();
+  if (typeof configurePackagesForEvent === "function") configurePackagesForEvent();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("asg_lang") || "pl";
+  const select = document.getElementById("langSelect");
+  if (select) select.value = saved;
+  setLang(saved);
+});
+</script>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzx8OPF_s_b_6ALBBOGGT-LyKBL5ST5tFbnLpA5sxJKyQgrAZQMyPV3vLV7yEkA2BwW/exec";
+const LIMIT=25;
+const ADMIN_PASSWORD="Barcelonia12";
+let entries=[];
+
+const EVENTS={
+  polskaCzechy:{key:"polskaCzechy",name:"Polska vs Czechy 15/16.08.2026",subtitle:"Zapisy na wydarzenie: Polska vs Czechy 15/16.08.2026",date:"2026-08-15T09:00:00",limit:25,teamMode:true,banner:true},
+  ubojnia:{key:"ubojnia",name:"Ubojnia CQB 28.06.2026",subtitle:"Zapisy na wydarzenie: Ubojnia CQB 28.06.2026",date:"2026-06-28T09:00:00",limit:50,teamMode:false,banner:false}
+};
+let currentEvent=null;
+
+const form=document.getElementById("signupForm"), statusBox=document.getElementById("status"), editId=document.getElementById("editId"), submitBtn=document.getElementById("submitBtn"), cancelEditBtn=document.getElementById("cancelEditBtn"), minorBox=document.getElementById("minorBox"), rulesBox=document.getElementById("rulesBox"), acceptRules=document.getElementById("acceptRules"), acceptRulesLabel=document.getElementById("acceptRulesLabel");
+
+
+function showStart(){
+  startScreen.classList.remove("hidden");
+  appScreen.classList.add("hidden");
+  heroSection.classList.add("hidden");
+  currentEvent=null;
+  eventSubtitle.textContent="System zapisów ASG Zielona Chmura";
+}
+
+function selectEvent(key){
+  currentEvent=EVENTS[key];
+  startScreen.classList.add("hidden");
+  appScreen.classList.remove("hidden");
+  heroSection.classList.toggle("hidden",!currentEvent.banner);
+  eventSubtitle.textContent=currentEvent.subtitle;
+  eventOption.textContent=currentEvent.name;
+  eventOption.value=currentEvent.name;
+  wydarzenie.value=currentEvent.name;
+
+  teamSection.classList.toggle("hidden",!currentEvent.teamMode);
+  boxPolska.classList.toggle("hidden",!currentEvent.teamMode);
+  boxCzechy.classList.toggle("hidden",!currentEvent.teamMode);
+  boxUbojnia.classList.toggle("hidden",currentEvent.teamMode);
+  document.querySelector("#counterSection .counter-grid").classList.toggle("singleCounter",!currentEvent.teamMode);
+
+  document.querySelectorAll('input[name="druzyna"]').forEach(r=>r.checked=false);
+  if(!currentEvent.teamMode){
+    let hiddenTeam=document.getElementById("hiddenTeamUbojnia");
+    if(!hiddenTeam){
+      hiddenTeam=document.createElement("input");
+      hiddenTeam.type="radio";hiddenTeam.name="druzyna";hiddenTeam.id="hiddenTeamUbojnia";hiddenTeam.value="Zapisani";hiddenTeam.required=true;hiddenTeam.style.display="none";
+      signupForm.appendChild(hiddenTeam);
+    }
+    hiddenTeam.checked=true;
+  }
+
+  EVENT_DATE=new Date(currentEvent.date);
+  updateCountdown();
+  configurePackagesForEvent();
+  resetFormMode();
+  loadData();
+}
+
+
+function configurePackagesForEvent(){
+  const dict = currentLangDict ? currentLangDict() : I18N.pl;
+
+  if (!currentEvent) return;
+
+  if (currentEvent.key === "ubojnia") {
+    packageWeekendLabel.classList.add("hidden");
+    packageSaturdayLabel.classList.add("hidden");
+
+    packageSundayLabel.classList.remove("disabled");
+    packageSunday.disabled = false;
+    packageSunday.checked = true;
+    packageSunday.value = "Tylko Niedziela";
+    packageSundayLabel.querySelector('[data-i18n="sunPackage"]').textContent = dict.ubojniaPackage || "Tylko Niedziela — 10 zł";
+    packageSundayLabel.querySelector(".note").classList.add("hidden");
+  } else {
+    packageWeekendLabel.classList.remove("hidden");
+    packageSaturdayLabel.classList.remove("hidden");
+
+    packageWeekendLabel.classList.add("disabled");
+    packageWeekend.disabled = true;
+    packageWeekend.checked = false;
+
+    let weekendNote = packageWeekendLabel.querySelector(".note");
+    if (!weekendNote) {
+      weekendNote = document.createElement("span");
+      weekendNote.className = "note";
+      packageWeekendLabel.appendChild(weekendNote);
+    }
+    weekendNote.textContent = " Dostępne od 01.08.2026";
+
+    packageSaturdayLabel.classList.add("disabled");
+    packageSaturday.disabled = true;
+
+    packageSundayLabel.classList.add("disabled");
+    packageSunday.disabled = true;
+    packageSunday.checked = false;
+    packageSunday.value = "Niedziela";
+    packageSundayLabel.querySelector('[data-i18n="sunPackage"]').textContent = dict.sunPackage || "Niedziela — 10 zł";
+    packageSundayLabel.querySelector(".note").classList.remove("hidden");
+  }
+}
+
+function showStatus(t,type){statusBox.textContent=t;statusBox.className="status "+type;statusBox.style.display="block"}
+async function api(action,payload={}){const body=new URLSearchParams();body.set("action",action);body.set("payload",JSON.stringify(payload));const r=await fetch(SCRIPT_URL,{method:"POST",body});const res=await r.json();if(!res.ok)throw new Error(res.error||"Błąd Apps Script");return res}
+async function loadData(){const info=document.getElementById("loadInfo");try{info.textContent="Pobieranie danych z Google Sheets...";const r=await api("list");entries=(r.entries||[]).filter(e=>!currentEvent||e.wydarzenie===currentEvent.name);updateCounters();renderPublic();renderAdmin();renderCheckin();info.textContent="Dane pobrane z Google Sheets."}catch(e){console.error(e);info.textContent="Nie udało się pobrać danych. Sprawdź link Apps Script /exec."}}
+function confirmed(team){return entries.filter(e=>e.druzyna===team&&(e.status||"POTWIERDZONY")==="POTWIERDZONY")}
+function reserve(team){return entries.filter(e=>e.druzyna===team&&e.status==="REZERWA")}
+function counts(){
+  if(currentEvent&&!currentEvent.teamMode){
+    return{Ubojnia:confirmed("Zapisani").length,UbojniaRezerwa:reserve("Zapisani").length,Polska:0,Czechy:0,PolskaRezerwa:0,CzechyRezerwa:0,PolskaSobota:0,PolskaNiedziela:0,CzechySobota:0,CzechyNiedziela:0}
+  }
+  return{Polska:confirmed("Polska").length,Czechy:confirmed("Czechy").length,PolskaRezerwa:reserve("Polska").length,CzechyRezerwa:reserve("Czechy").length,PolskaSobota:confirmed("Polska").filter(e=>e.sobota==="TAK").length,PolskaNiedziela:confirmed("Polska").filter(e=>e.niedziela==="TAK").length,CzechySobota:confirmed("Czechy").filter(e=>e.sobota==="TAK").length,CzechyNiedziela:confirmed("Czechy").filter(e=>e.niedziela==="TAK").length}
+}
+function updateCounters(){const c=counts();
+if(currentEvent&&!currentEvent.teamMode){
+  ubojniaZapisani.textContent=c.Ubojnia+" / "+currentEvent.limit;
+  ubojniaRezerwa.textContent=c.UbojniaRezerwa;
+  boxUbojnia.classList.toggle("full",c.Ubojnia>=currentEvent.limit);
+  return;
+}
+polskaSobota.textContent=c.PolskaSobota;polskaNiedziela.textContent=c.PolskaNiedziela;czechySobota.textContent=c.CzechySobota;czechyNiedziela.textContent=c.CzechyNiedziela;polskaRezerwa.textContent=c.PolskaRezerwa;czechyRezerwa.textContent=c.CzechyRezerwa;const limit=currentEvent?currentEvent.limit:LIMIT;const pf=c.Polska>=limit,cf=c.Czechy>=limit;boxPolska.classList.toggle("full",pf);boxCzechy.classList.toggle("full",cf);labelPolska.classList.toggle("disabled",pf);labelCzechy.classList.toggle("disabled",cf);polskaReserveNote.style.display=pf?"block":"none";czechyReserveNote.style.display=cf?"block":"none"}
+
+function renderPublicHead(){
+  const head=document.getElementById("publicTableHead");
+  if(!head)return;
+  if(currentEvent&&!currentEvent.teamMode){
+    head.innerHTML='<th data-i18n="nick">Nick</th><th data-i18n="package">Pakiet</th><th data-i18n="ageConfirm">Potwierdzenie wieku</th>';
+  }else{
+    head.innerHTML='<th data-i18n="nick">Gracz</th><th data-i18n="team">Drużyna</th><th data-i18n="package">Pakiet</th><th data-i18n="age">Wiek</th>';
+  }
+  const lang=localStorage.getItem("asg_lang")||"pl";
+  const dict=I18N[lang]||I18N.pl;
+  head.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(dict[key])el.textContent=dict[key];
+  });
+}
+
+function renderPublic(){
+  renderPublicHead();
+  publicRows.innerHTML="";
+  const isSingle=currentEvent&&!currentEvent.teamMode;
+  const colspan=isSingle?3:4;
+  if(!entries.length){
+    publicRows.innerHTML='<tr><td colspan="'+colspan+'">Brak zapisanych osób.</td></tr>';
+    return;
+  }
+  entries.forEach(e=>{
+    let st=e.status||"POTWIERDZONY";
+    let tr=document.createElement("tr");
+    if(st==="REZERWA")tr.classList.add("reserveRow");
+    if(isSingle){
+      tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.wiek)}</td>`;
+    }else{
+      tr.innerHTML=`<td>${esc(e.nick)}</td><td>${esc(e.druzyna)}</td><td>${esc(e.pakiet)}</td><td>${esc(e.wiek)}</td>`;
+    }
+    publicRows.appendChild(tr);
+  });
+}
+function renderAdmin(){adminRows.innerHTML="";if(!sessionStorage.getItem("asg_admin"))return;if(!entries.length){adminRows.innerHTML='<tr><td colspan="11">Brak zgłoszeń.</td></tr>';return}entries.forEach(e=>{let st=e.status||"POTWIERDZONY",tr=document.createElement("tr");if(st==="REZERWA")tr.classList.add("reserveRow");tr.innerHTML=`<td>${esc(e.data)}</td>
+<td>${esc(e.nick)}</td>
+<td>${esc(e.telefon||"")}</td>
+<td>${esc(e.druzyna)}</td>
+<td>${esc(e.pakiet)}</td>
+<td>${esc(e.sobota)}</td>
+<td>${esc(e.niedziela)}</td>
+<td>${esc(st)}</td>
+<td>${esc(e.wiek)}</td>
+<td>${esc(e.uwagi||"")}</td>
+<td>
+<button class="smallBtn secondary" onclick="editEntry('${e.id}')">Edytuj</button>
+<button class="smallBtn danger" onclick="deleteEntry('${e.id}')">Usuń</button>
+</td>`;adminRows.appendChild(tr)})}
+showRulesBtn.onclick=()=>{rulesBox.classList.remove("hidden");acceptRules.disabled=false;acceptRulesLabel.classList.remove("disabled")};
+document.querySelectorAll('input[name="wiek"]').forEach(el=>el.onchange=()=>{minorBox.classList.toggle("hidden",!el.value.includes("Nie mam 18 lat"))});
+cancelEditBtn.onclick=resetFormMode;
+
+function currentLangDict(){const lang=localStorage.getItem("asg_lang")||"pl";return I18N[lang]||I18N.pl}
+function toggleGroupSignup(){const enabled=document.getElementById("groupSignup").checked;document.getElementById("groupOptions").classList.toggle("hidden",!enabled);document.getElementById("nick").required=!enabled;document.getElementById("nick").closest("div").classList.toggle("hidden",enabled);renderGroupFields()}
+function renderGroupFields(){const box=document.getElementById("groupPeople");if(!box)return;const enabled=document.getElementById("groupSignup").checked;if(!enabled){box.innerHTML="";return}const dict=currentLangDict();const count=Number(document.getElementById("groupCount").value||2);const existing={};document.querySelectorAll(".groupPersonInput").forEach(inp=>existing[inp.dataset.index]=inp.value);let out="";for(let i=1;i<=count;i++){out+=`<div class="personBox">
+<label>${dict.personLabel||"Osoba"} ${i}</label>
+<input class="groupPersonInput" data-index="${i}" required placeholder="${dict.personPlaceholder||"Nick / imię osoby"}" value="${esc(existing[i]||"")}">
+</div>`}box.innerHTML=out}
+function getSignupNames(){const isGroup=document.getElementById("groupSignup").checked;if(!isGroup)return[document.getElementById("nick").value.trim()];return Array.from(document.querySelectorAll(".groupPersonInput")).map(i=>i.value.trim()).filter(Boolean)}
+
+form.onsubmit=async e=>{e.preventDefault();const d=new FormData(form),id=editId.value,druzyna=(currentEvent&&!currentEvent.teamMode)?"Zapisani":d.get("druzyna"),pakiet=d.get("pakiet"),names=getSignupNames();if(!acceptRules.checked){showStatus("Najpierw wyświetl i zaakceptuj regulamin.","err");return}if(!d.get("telefon")||!String(d.get("telefon")).trim()){showStatus("Telefon lub Konto FB jest wymagane.","err");return}if(!names.length){showStatus("Uzupełnij osoby do zapisu.","err");return}if(currentEvent&&currentEvent.key==="polskaCzechy"){showStatus("Zapisy na Polska VS Czechy będą dostępne od 01.08.2026.","err");return}try{submitBtn.disabled=true;if(id){const status=entries.filter(x=>x.druzyna===druzyna&&(x.status||"POTWIERDZONY")==="POTWIERDZONY"&&x.id!==id).length>=LIMIT?"REZERWA":"POTWIERDZONY";const entry={id,limit:currentEvent?currentEvent.limit:LIMIT,wydarzenie:currentEvent?currentEvent.name:d.get("wydarzenie"),nick:names[0],telefon:d.get("telefon"),druzyna,pakiet,sobota:pakiet==="Sobota"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",niedziela:pakiet==="Niedziela"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",status,wiek:d.get("wiek"),regulamin:acceptRules.checked?"TAK":"NIE",uwagi:d.get("uwagi")};await api("update",entry);showStatus("Zgłoszenie zaktualizowane.","ok")}else{let confirmedSoFar=entries.filter(x=>x.druzyna===druzyna&&(x.status||"POTWIERDZONY")==="POTWIERDZONY").length;let reserveUsed=false;for(const personName of names){const status=confirmedSoFar>=(currentEvent?currentEvent.limit:LIMIT)?"REZERWA":"POTWIERDZONY";if(status==="REZERWA")reserveUsed=true;else confirmedSoFar++;const entry={id:"",limit:currentEvent?currentEvent.limit:LIMIT,wydarzenie:currentEvent?currentEvent.name:d.get("wydarzenie"),nick:personName,telefon:d.get("telefon"),druzyna,pakiet,sobota:pakiet==="Sobota"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",niedziela:pakiet==="Niedziela"||pakiet==="Sobota-Niedziela"?"TAK":"NIE",status,wiek:d.get("wiek"),regulamin:acceptRules.checked?"TAK":"NIE",uwagi:d.get("uwagi")};await api("add",entry)}const dict=currentLangDict();showStatus(names.length>1?(dict.groupSent+(reserveUsed?" "+dict.groupReserveInfo:"")):(reserveUsed?"Zgłoszenie wysłane na listę rezerwową.":"Zgłoszenie wysłane do arkusza."),reserveUsed?"warn":"ok")}resetFormMode();await loadData()}catch(err){showStatus("Błąd zapisu: "+err.message,"err")}finally{submitBtn.disabled=false}};
+function resetFormMode(){form.reset();editId.value="";if(currentEvent){eventOption.textContent=currentEvent.name;eventOption.value=currentEvent.name;wydarzenie.value=currentEvent.name;}if(currentEvent&&!currentEvent.teamMode){const ht=document.getElementById("hiddenTeamUbojnia");if(ht)ht.checked=true;}document.getElementById("groupSignup").checked=false;toggleGroupSignup();submitBtn.textContent="Wyślij zgłoszenie";cancelEditBtn.classList.add("hidden");minorBox.classList.add("hidden");acceptRules.checked=false;acceptRules.disabled=true;acceptRulesLabel.classList.add("disabled");rulesBox.classList.add("hidden");configurePackagesForEvent();updateCounters()}
+function loginAdmin(){if(adminPass.value!==ADMIN_PASSWORD){alert("Błędne hasło.");return}sessionStorage.setItem("asg_admin","1");loginBox.classList.add("hidden");adminPanel.classList.remove("hidden");const d=document.getElementById("adminDetails");if(d)d.open=true;renderAdmin();renderCheckin()}
+function logoutAdmin(){sessionStorage.removeItem("asg_admin");loginBox.classList.remove("hidden");adminPanel.classList.add("hidden")}
+function editEntry(id){const e=entries.find(x=>x.id===id);if(!e)return;document.getElementById("groupSignup").checked=false;toggleGroupSignup();editId.value=e.id;wydarzenie.value=e.wydarzenie;nick.value=e.nick;telefon.value=e.telefon||"";const teamRadio=document.querySelector(`input[name="druzyna"][value="${e.druzyna}"]`);if(teamRadio)teamRadio.checked=true;document.querySelector(`input[name="pakiet"][value="${e.pakiet}"]`).checked=true;document.querySelector(`input[name="wiek"][value="${e.wiek}"]`).checked=true;uwagi.value=e.uwagi||"";rulesBox.classList.remove("hidden");acceptRules.disabled=false;acceptRules.checked=true;acceptRulesLabel.classList.remove("disabled");minorBox.classList.toggle("hidden",!e.wiek.includes("Nie mam 18 lat"));submitBtn.textContent="Zapisz zmiany";cancelEditBtn.classList.remove("hidden");window.scrollTo({top:250,behavior:"smooth"})}
+async function deleteEntry(id){if(!confirm("Usunąć to zgłoszenie?"))return;await api("delete",{id});await loadData()}
+
+const CHECKIN_KEY = "asg_checkin_presence_v1";
+
+function getPresenceMap(){
+  return JSON.parse(localStorage.getItem(CHECKIN_KEY) || "{}");
+}
+
+function savePresenceMap(map){
+  localStorage.setItem(CHECKIN_KEY, JSON.stringify(map));
+}
+
+function setLocalPresence(id, checked){
+  const map = getPresenceMap();
+  if (checked) map[id] = true;
+  else delete map[id];
+  savePresenceMap(map);
+  renderCheckin();
+}
+
+function renderCheckin(){
+  const rows = document.getElementById("checkinRows");
+  if (!rows) return;
+
+  const map = getPresenceMap();
+  const search = (document.getElementById("checkinSearch")?.value || "").toLowerCase().trim();
+  const team = document.getElementById("checkinTeamFilter")?.value || "ALL";
+
+  let list = entries.filter(e => (e.status || "POTWIERDZONY") === "POTWIERDZONY");
+
+  if (team !== "ALL") list = list.filter(e => e.druzyna === team);
+  if (search) list = list.filter(e => String(e.nick || "").toLowerCase().includes(search));
+
+  list.sort((a,b) => String(a.druzyna || "").localeCompare(String(b.druzyna || "")) || String(a.nick || "").localeCompare(String(b.nick || "")));
+
+  rows.innerHTML = "";
+
+  let present = 0;
+
+  if (!list.length) {
+    rows.innerHTML = '<tr><td colspan="3">Brak osób.</td></tr>';
+    document.getElementById("checkinPresentCount").textContent = "0 / 0";
+    return;
+  }
+
+  list.forEach(e => {
+    const checked = !!map[e.id];
+    if (checked) present++;
+
+    const tr = document.createElement("tr");
+    tr.className = checked ? "checkinRow checkinPresent" : "checkinRow";
+    tr.innerHTML = `
+      <td>${esc(e.nick)}</td>
+      <td>${esc(e.druzyna)}</td>
+      <td style="text-align:center">
+        <input class="checkinCheckbox" type="checkbox" ${checked ? "checked" : ""} onchange="setLocalPresence('${e.id}', this.checked)">
+      </td>
+    `;
+    rows.appendChild(tr);
+  });
+
+  document.getElementById("checkinPresentCount").textContent = present + " / " + list.length;
+}
+
+function exportCSV(){const h=["Data","Nick","Telefon lub Konto FB","Drużyna","Pakiet","Sobota","Niedziela","Status","Wiek","Regulamin","Uwagi"];const rows=entries.map(e=>[e.data,e.nick,e.telefon,e.druzyna,e.pakiet,e.sobota,e.niedziela,e.status||"POTWIERDZONY",e.wiek,e.regulamin,e.uwagi]);const csv=[h,...rows].map(r=>r.map(v=>'"'+String(v||"").replaceAll('"','""')+'"').join(";")).join("\\n");const blob=new Blob(["\\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="zapisy_zielona_chmura.csv";a.click();URL.revokeObjectURL(url)}
+function esc(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+if(sessionStorage.getItem("asg_admin")){loginBox.classList.add("hidden");adminPanel.classList.remove("hidden");const d=document.getElementById("adminDetails");if(d)d.open=true;}
+
+let EVENT_DATE = new Date("2026-08-15T09:00:00");
+function updateCountdown(){
+ const now=new Date();
+ let diff=EVENT_DATE-now;
+ if(diff<0) diff=0;
+ const d=Math.floor(diff/86400000);
+ const h=Math.floor((diff%86400000)/3600000);
+ const m=Math.floor((diff%3600000)/60000);
+ const s=Math.floor((diff%60000)/1000);
+ if(document.getElementById('cdDays')){
+   cdDays.textContent=d;
+   cdHours.textContent=h;
+   cdMinutes.textContent=m;
+   cdSeconds.textContent=s;
+ }
+}
+showStart();
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+</script>
+</body>
+</html>
